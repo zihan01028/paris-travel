@@ -94,6 +94,9 @@ figure.map figcaption{font-size:13px;color:var(--muted);padding:6px 4px 2px}
 .day .alert{margin:10px 0 0;font-size:14px;background:var(--warnbg);color:var(--ink);border-radius:8px;padding:8px 10px}
 .day .alert b{color:var(--warn)}
 .day .tools{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.daybody[hidden]{display:none}
+.day-toggle::before{content:"▸";display:inline-block;transition:transform .18s ease}
+.day-toggle[aria-expanded="true"]::before{transform:rotate(90deg)}
 .btn{appearance:none;font:500 14px var(--sans);color:var(--ink);background:transparent;border:1px solid var(--rule);border-radius:8px;padding:7px 12px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
 .btn:hover{border-color:var(--ink)}
 .btn.primary{background:var(--c);border-color:var(--c);color:#fff}
@@ -292,8 +295,8 @@ const DAYS = [
    {t:"12:30",p:"bedford",ttl:"Le Victoria 午饭",tag:"tbd",note:"在玛德莲附近，比去圣日耳曼的 Louise 顺路。"},
    {t:"14:00",p:"opera",ttl:"加尼叶歌剧院",tag:"book",note:"偶尔因彩排关闭部分区域，出门前看一眼官网日历。"},
    {t:"15:30",p:"lafayette",ttl:"老佛爷百货，屋顶露台看全景（免费）"},
-   {t:"17:00",p:"sthonore",ttl:"回住处休息、换衣服",note:"从老佛爷走回去约 15 分钟。"},
-   {slot:"傍晚",ttl:"情侣摄影",tag:"booked",note:"今天日落约 19:20。集合时间和地点、会不会去铁塔机位，跟摄影师确认。"}
+   {t:"16:00",p:"sthonore",ttl:"回住处休息、换衣服",note:"从老佛爷走回去约 15 分钟。"},
+   {t:"17:00",ttl:"情侣摄影集合",tag:"booked",note:"5:00 PM 集合。今天日落约 19:20。"}
   ]},
  {d:"2026-10-06",city:"巴黎",c:"#3F9556",stay:"sthonore",theme:"西岱岛和拉丁区。卢浮宫周二闭馆，今天在左岸",
   items:[
@@ -392,7 +395,7 @@ const BOOKED = [
  {d:"2026-10-04",t:"09:00",ttl:"卢浮宫讲解",sub:"9:00–12:00",p:"louvre"},
  {d:"2026-10-04",t:"12:45",ttl:"Breizh Café 午饭",sub:"两位",p:"breizh"},
  {d:"2026-10-04",t:"15:30",ttl:"奥赛博物馆免费日预约",sub:"约了 13:30 和 15:30 两个时段，用 15:30",p:"orsay",addr:"Esplanade Valéry Giscard d'Estaing, 75007 Paris"},
- {d:"2026-10-05",ttl:"情侣摄影",sub:"10.5 傍晚"},
+ {d:"2026-10-05",t:"17:00",ttl:"情侣摄影",sub:"5:00 PM 集合"},
  {d:"2026-10-07",ttl:"Crowne Plaza Paris République",sub:"10.7 – 10.9，2 晚",p:"republique",addr:"10 Place de la République, 75011 Paris"},
  {d:"2026-10-07",t:"19:30",ttl:"Restaurant H 晚饭",sub:"最好改到 19:00",p:"restoh",addr:"13 Rue Jean Beausire, 75004 Paris"},
  {d:"2026-10-07",t:"22:30",ttl:"疯马秀",sub:"22:00 前到场",p:"crazy",addr:"12 Avenue George V, 75008 Paris"},
@@ -426,12 +429,7 @@ const TODO = [
   {t:"10.3 晚饭选一家",w:"候选：Les Cocottes Tour Eiffel、L'Atypic、JJ Beaumarchais、Boutary、Les Antiquaires"},
   {t:"塞纳河游船放 10.4 晚还是 10.8 晚，然后订票",w:""},
   {t:"10.8 晚上：铁塔登顶、奥赛夜场还是游船",w:""},
-  {t:"10.11 午饭：La Triunfal 还是 Tuscania",w:""},
-  {t:"情侣摄影的集合时间、地点和机位",w:"10.5 傍晚"}
- ]},
- {h:"发我截图或信息",items:[
-  {t:"DL3842 从圣何塞起飞的时间",w:"收据上没有时间，补上后倒计时从出发算起"},
-  {t:"卢浮宫讲解、疯马秀、球票、圣家堂的订单",w:"补集合点、地址和电话"}
+  {t:"10.11 午饭：La Triunfal 还是 Tuscania",w:""}
  ]},
  {h:"出发前",items:[
   {t:"UA673 选座",w:"两人都还没选，想坐一起早点选"},
@@ -649,18 +647,31 @@ function renderDays(){
       <header><h3><span class="d">${md}</span>${wk}<span class="city">${esc(day.city)}</span>${day.d===today?`<span class="today">今天</span>`:""}</h3>
         <p class="theme">${esc(day.theme)}</p>${day.stay?`<p class="theme">今晚住：${placeLink(day.stay)}</p>`:""}
         ${day.alert?`<p class="alert"><b>注意</b>　${esc(day.alert)}</p>`:""}
-        <div class="tools"><button class="btn" type="button" aria-expanded="false" data-map="${i}">展开当日路线图</button>
+        <div class="tools"><button class="btn day-toggle" type="button" aria-expanded="false" data-day="${i}">展开行程</button>
+        <button class="btn" type="button" aria-expanded="false" data-map="${i}">展开当日路线图</button>
         ${stops.length>1?`<a class="btn primary" href="${navAll(stops)}" target="_blank" rel="noopener">全天多点导航（${Math.min(stops.length,9)} 站）</a>`:""}</div>
       </header>
-      <div class="daymap" id="m${i}" hidden><svg role="img" aria-label="${md} 路线图"></svg></div>
-      <ol class="tl">${rows}</ol></article>`;
+      <div class="daybody" id="b${i}" hidden>
+        <div class="daymap" id="m${i}" hidden><svg role="img" aria-label="${md} 路线图"></svg></div>
+        <ol class="tl">${rows}</ol>
+      </div></article>`;
   }).join("");
+  document.querySelectorAll("[data-day]").forEach(btn => btn.addEventListener("click", () => toggleDay(btn)));
   document.querySelectorAll("[data-map]").forEach(btn => btn.addEventListener("click", () => toggleMap(btn)));
-  const ti = DAYS.findIndex(d => d.d === today);
-  if (ti >= 0) toggleMap(document.querySelector(`[data-map="${ti}"]`));
+}
+function toggleDay(btn, forceOpen=false){
+  const i = +btn.dataset.day, body = document.getElementById("b"+i);
+  const open = forceOpen ? true : body.hidden;
+  body.hidden = !open;
+  btn.setAttribute("aria-expanded", String(open));
+  btn.textContent = open ? "收起行程" : "展开行程";
 }
 function toggleMap(btn){
   const i = +btn.dataset.map, box = document.getElementById("m"+i), open = box.hidden;
+  if (open){
+    const dayBtn = document.querySelector(`[data-day="${i}"]`);
+    if (dayBtn) toggleDay(dayBtn, true);
+  }
   if (open && !box.dataset.done){ drawDayMap(box.querySelector("svg"), DAYS[i], i); box.dataset.done = 1; }
   box.hidden = !open; btn.setAttribute("aria-expanded", String(open));
   btn.textContent = open ? "收起路线图" : "展开当日路线图";
