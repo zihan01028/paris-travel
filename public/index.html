@@ -1,0 +1,687 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#EDF1F5">
+<title>巴黎六日 巴塞罗那四日</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%97%BA%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --paper:#EDF1F5; --surface:#FFFFFF; --ink:#1C2838; --muted:#5A6678; --rule:#CBD4DE;
+  --soft:#E2E8EF; --warn:#B4361F; --warnbg:#FBEAE6; --ok:#2E7D4F; --okbg:#E4F2E9;
+  --need:#1F5FAF; --needbg:#E4EEFA; --tbd:#7A6212; --tbdbg:#F6EFD6;
+  --land:#E6EBF0; --water:#C9DCEB; --waterline:#7FA7C8;
+  --serif:"Songti SC","Noto Serif SC","Source Han Serif SC","Noto Serif CJK SC","STSong",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",system-ui,sans-serif;
+  --num:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+  --paper:#0E1621; --surface:#162131; --ink:#E4EAF2; --muted:#98A6B8; --rule:#2B3A4E;
+  --soft:#1D2A3C; --warn:#FF8A73; --warnbg:#3A1E1A; --ok:#7FD3A0; --okbg:#173024;
+  --need:#8DB8F2; --needbg:#172A44; --tbd:#E8CC72; --tbdbg:#332B12;
+  --land:#18253A; --water:#1C3550; --waterline:#4F7EA8;
+}}
+:root[data-theme="dark"]{
+  --paper:#0E1621; --surface:#162131; --ink:#E4EAF2; --muted:#98A6B8; --rule:#2B3A4E;
+  --soft:#1D2A3C; --warn:#FF8A73; --warnbg:#3A1E1A; --ok:#7FD3A0; --okbg:#173024;
+  --need:#8DB8F2; --needbg:#172A44; --tbd:#E8CC72; --tbdbg:#332B12;
+  --land:#18253A; --water:#1C3550; --waterline:#4F7EA8;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 56px);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.65 var(--sans);transition:background .4s,color .4s}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:2px solid var(--need);outline-offset:2px;border-radius:4px}
+.wrap{max-width:760px;margin:0 auto;padding:0 18px 64px}
+header.top{padding:28px 0 10px}
+header.top h1{font:700 30px/1.25 var(--serif);margin:0;letter-spacing:.02em}
+header.top p{margin:6px 0 0;color:var(--muted);font-size:14px}
+nav.jump{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);margin:0 -18px;padding:8px 18px;display:flex;gap:6px;overflow-x:auto;border-bottom:1px solid var(--rule);scrollbar-width:none}
+nav.jump::-webkit-scrollbar{display:none}
+nav.jump a{flex:none;text-decoration:none;font-size:14px;padding:5px 12px;border-radius:999px;color:var(--muted);border:1px solid var(--rule)}
+nav.jump a:hover{color:var(--ink);border-color:var(--ink)}
+section{margin-top:40px}
+h2{font:700 22px/1.3 var(--serif);margin:0 0 14px}
+.sub{color:var(--muted);font-size:14px;margin:-8px 0 16px}
+
+/* focus card */
+.focus{margin-top:18px;background:var(--ink);color:var(--paper);border-radius:14px;padding:20px 20px 18px;position:relative;overflow:hidden}
+.focus .lbl{font-size:13px;opacity:.75}
+.focus .what{font:700 21px/1.35 var(--serif);margin:6px 0 2px}
+.focus .when{font-size:14px;opacity:.85}
+.focus .when .local{display:block;opacity:.8;font-size:13px}
+.clock{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:16px}
+.clock div{text-align:center;border:1px solid color-mix(in srgb,var(--paper) 25%,transparent);border-radius:10px;padding:8px 0 6px}
+.clock b{display:block;font:600 40px/1 var(--num);font-variant-numeric:lining-nums tabular-nums}
+.clock span{font-size:12px;opacity:.7}
+.focus .go{display:inline-block;margin-top:14px;font-size:14px;color:var(--paper);opacity:.9}
+
+/* map */
+figure.map{margin:0 0 18px;background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:10px}
+figure.map svg{display:block;width:100%;height:auto}
+figure.map figcaption{font-size:13px;color:var(--muted);padding:6px 4px 2px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 12px;padding:6px 4px 2px;font-size:13px}
+.legend a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--ink)}
+.legend i{width:18px;height:4px;border-radius:2px;display:inline-block}
+.svglabel{font:600 11px var(--sans);fill:var(--ink);paint-order:stroke;stroke:var(--surface);stroke-width:3px}
+.citylabel{font:700 15px var(--serif);fill:var(--muted)}
+
+/* bookings */
+.bk{display:grid;gap:10px}
+.bk article{background:var(--surface);border:1px solid var(--rule);border-left:4px solid var(--ok);border-radius:10px;padding:12px 14px}
+.bk article.pending{border-left-color:var(--warn)}
+.bk h3{margin:0;font-size:16px}
+.bk .meta{font-size:14px;color:var(--muted);margin-top:2px}
+.bk .meta a{color:var(--ink)}
+.bk dl{margin:6px 0 0;display:grid;grid-template-columns:auto 1fr;gap:2px 10px;font-size:14px}
+.bk dt{color:var(--muted)}
+.bk dd{margin:0}
+
+/* days */
+.day{background:var(--surface);border:1px solid var(--rule);border-radius:12px;margin-bottom:16px;overflow:hidden}
+.day > header{padding:14px 16px 12px;border-top:6px solid var(--c)}
+.day h3{margin:0;font:700 19px/1.3 var(--serif);display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.day h3 .d{font-family:var(--num);font-variant-numeric:lining-nums}
+.day h3 .city{font:500 13px var(--sans);color:var(--muted)}
+.day h3 .today{font:600 12px var(--sans);background:var(--c);color:#fff;padding:1px 8px;border-radius:999px}
+.day .theme{margin:4px 0 0;font-size:14px;color:var(--muted)}
+.day .alert{margin:10px 0 0;font-size:14px;background:var(--warnbg);color:var(--ink);border-radius:8px;padding:8px 10px}
+.day .alert b{color:var(--warn)}
+.day .tools{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.btn{appearance:none;font:500 14px var(--sans);color:var(--ink);background:transparent;border:1px solid var(--rule);border-radius:8px;padding:7px 12px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.btn:hover{border-color:var(--ink)}
+.btn.primary{background:var(--c);border-color:var(--c);color:#fff}
+.daymap{padding:0 12px 4px}
+.daymap[hidden]{display:none}
+.daymap svg{width:100%;height:auto;display:block;background:var(--land);border-radius:8px}
+ol.tl{list-style:none;margin:0;padding:4px 0 8px}
+ol.tl li{display:grid;grid-template-columns:74px 1fr;gap:12px;padding:10px 16px;border-top:1px solid var(--soft)}
+.tm{font:600 17px/1.2 var(--num);font-variant-numeric:lining-nums tabular-nums;text-align:right}
+.tm small{display:block;font:500 11px var(--sans);color:var(--muted);margin-top:2px}
+.tm.slot{font:500 14px var(--sans);color:var(--muted)}
+.it .ttl{font-weight:600}
+.it .ttl a{text-decoration:underline;text-decoration-color:var(--c);text-decoration-thickness:2px;text-underline-offset:3px}
+.it .ttl a::after{content:"";display:inline-block;width:.7em;height:.7em;margin-left:4px;background:currentColor;opacity:.55;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z'/%3E%3C/svg%3E") center/contain no-repeat}
+.it .note{font-size:14px;color:var(--muted);margin-top:2px}
+.tag{display:inline-block;font:600 12px/1.6 var(--sans);padding:0 7px;border-radius:5px;margin-left:6px;vertical-align:1px;white-space:nowrap}
+.tag.booked{background:var(--okbg);color:var(--ok)}
+.tag.book{background:var(--needbg);color:var(--need)}
+.tag.tbd{background:var(--tbdbg);color:var(--tbd)}
+.tag.warn,.tag.unbooked{background:var(--warnbg);color:var(--warn)}
+li.past{opacity:.5}
+
+/* todo */
+ul.todo{margin:0;padding:0;list-style:none;background:var(--surface);border:1px solid var(--rule);border-radius:12px}
+ul.todo li{padding:11px 16px 11px 34px;border-top:1px solid var(--soft);position:relative;font-size:15px}
+ul.todo li:first-child{border-top:0}
+ul.todo li::before{content:"";position:absolute;left:15px;top:19px;width:7px;height:7px;border-radius:50%;background:var(--muted)}
+ul.todo li.urgent::before{background:var(--warn)}
+ul.todo .when{display:block;font-size:13px;color:var(--muted)}
+.todohead{font:600 15px var(--sans);margin:18px 0 8px;color:var(--muted)}
+
+/* tips */
+.tips{display:grid;gap:12px}
+.tips article{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:12px 16px}
+.tips h3{margin:0 0 4px;font:700 16px var(--serif)}
+.tips p{margin:4px 0;font-size:15px}
+footer{margin-top:40px;font-size:13px;color:var(--muted);text-align:center}
+@media (max-width:420px){
+  .clock b{font-size:32px}
+  ol.tl li{grid-template-columns:60px 1fr;gap:10px;padding:10px 12px}
+  .tm{font-size:15px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>巴黎六日，巴塞罗那四日</h1>
+    <p>2026 年 10 月 3 日至 10 月 13 日，两个人。时间都是当地时间，巴黎和巴塞罗那都是 CEST（UTC+2）。</p>
+  </header>
+
+  <div class="focus" id="focus" aria-live="polite"></div>
+
+  <nav class="jump" aria-label="页面目录">
+    <a href="#map">路线地图</a><a href="#booked">已订</a><a href="#days">逐日行程</a><a href="#todo">待办</a><a href="#tips">贴士</a>
+  </nav>
+
+  <section id="map">
+    <h2>路线总览</h2>
+    <p class="sub">每种颜色是一天的路线。点图例跳到当天。</p>
+    <figure class="map"><svg id="mapParis" role="img" aria-label="巴黎每日路线手绘图"></svg><div class="legend" id="lgParis"></div><figcaption>巴黎 10.3 – 10.9，10.9 下午从奥利机场飞巴塞罗那</figcaption></figure>
+    <figure class="map"><svg id="mapBcn" role="img" aria-label="巴塞罗那每日路线手绘图"></svg><div class="legend" id="lgBcn"></div><figcaption>巴塞罗那 10.9 晚 – 10.13</figcaption></figure>
+  </section>
+
+  <section id="booked">
+    <h2>已订</h2>
+    <p class="sub">机票、门票、餐厅、演出。点名称直接导航。</p>
+    <div class="bk" id="bk"></div>
+  </section>
+
+  <section id="days">
+    <h2>逐日行程</h2>
+    <p class="sub">带下划线的地点点开就是 Google 地图导航。标签：<span class="tag booked">已订</span><span class="tag book">需预约</span><span class="tag unbooked">未订</span><span class="tag tbd">待定</span></p>
+    <div id="dayList"></div>
+  </section>
+
+  <section id="todo">
+    <h2>待办</h2>
+    <div id="todoList"></div>
+  </section>
+
+  <section id="tips">
+    <h2>实用贴士</h2>
+    <div class="tips" id="tipList"></div>
+  </section>
+
+  <footer>时间都是当地时间：巴黎和巴塞罗那 CEST（UTC+2），旧金山 PDT（UTC−7）。</footer>
+</div>
+
+<script>
+"use strict";
+/* ---------- time helpers: every clock time is local CEST (+02:00) ---------- */
+const OFF = "+02:00", TZN = "CEST", TZID = "Europe/Paris";
+const CEST = {off:OFF,tzn:TZN,tzid:TZID};
+const at = (d, t, tz) => new Date(`${d}T${t}:00${(tz||CEST).off}`);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const WK = ["周日","周一","周二","周三","周四","周五","周六"];
+
+/* ---------- places ---------- */
+const P = {
+  cdg:{n:"戴高乐机场 CDG",q:"Paris Charles de Gaulle Airport",ll:[49.0097,2.5479],far:1},
+  sthonore:{n:"巴黎住处（Saint-Honoré）",q:"165 Rue Saint-Honoré, 75001 Paris",ll:[48.8625,2.3383],home:1},
+  republique:{n:"Crowne Plaza Paris République",q:"Crowne Plaza Paris République, 10 Place de la République, 75011 Paris",ll:[48.8676,2.3637],home:1},
+  champs:{n:"香榭丽舍大道",q:"Avenue des Champs-Élysées, Paris",ll:[48.8698,2.3078]},
+  arc:{n:"凯旋门",q:"Arc de Triomphe, Paris",ll:[48.8738,2.2950]},
+  cocottes:{n:"Les Cocottes Tour Eiffel",q:"Les Cocottes Tour Eiffel, 135 Rue Saint-Dominique, Paris",ll:[48.8574,2.3013]},
+  troca:{n:"Trocadéro 广场",q:"Place du Trocadéro, Paris",ll:[48.8620,2.2876]},
+  marly:{n:"Le Café Marly",q:"Le Café Marly, Paris",ll:[48.8612,2.3353]},
+  louvre:{n:"卢浮宫",q:"Musée du Louvre, Paris",ll:[48.8606,2.3376]},
+  breizh:{n:"Breizh Café",q:"Breizh Café Bourse de Commerce, Paris",ll:[48.8629,2.3428]},
+  palaisroyal:{n:"皇家宫殿花园",q:"Jardin du Palais Royal, Paris",ll:[48.8650,2.3378]},
+  orsay:{n:"奥赛博物馆",q:"Musée d'Orsay, Paris",ll:[48.8600,2.3266]},
+  pontneuf:{n:"Vedettes du Pont Neuf 游船码头",q:"Vedettes du Pont Neuf, Paris",ll:[48.8570,2.3413]},
+  tuileries:{n:"杜乐丽花园",q:"Jardin des Tuileries, Paris",ll:[48.8635,2.3275]},
+  orangerie:{n:"橘园美术馆",q:"Musée de l'Orangerie, Paris",ll:[48.8638,2.3226]},
+  concorde:{n:"协和广场",q:"Place de la Concorde, Paris",ll:[48.8656,2.3212]},
+  marine:{n:"海军府",q:"Hôtel de la Marine, Paris",ll:[48.8667,2.3226]},
+  bedford:{n:"Le Victoria（Hôtel Bedford）",q:"Hôtel Bedford, 17 Rue de l'Arcade, Paris",ll:[48.8729,2.3244]},
+  opera:{n:"加尼叶歌剧院",q:"Palais Garnier, Paris",ll:[48.8720,2.3316]},
+  lafayette:{n:"老佛爷奥斯曼旗舰店",q:"Galeries Lafayette Haussmann, Paris",ll:[48.8738,2.3320]},
+  isabelle:{n:"La Maison d'Isabelle",q:"La Maison d'Isabelle, 47 Boulevard Saint-Germain, Paris",ll:[48.8505,2.3470]},
+  chapelle:{n:"圣礼拜堂",q:"Sainte-Chapelle, Paris",ll:[48.8554,2.3450]},
+  notredame:{n:"巴黎圣母院",q:"Cathédrale Notre-Dame de Paris",ll:[48.8530,2.3499]},
+  shakespeare:{n:"莎士比亚书店",q:"Shakespeare and Company, Paris",ll:[48.8526,2.3471]},
+  pantheon:{n:"先贤祠",q:"Panthéon, Paris",ll:[48.8462,2.3464]},
+  monge:{n:"Pharmacie Monge",q:"Pharmacie Monge, 74 Rue Monge, Paris",ll:[48.8434,2.3522]},
+  taillevent:{n:"Le Taillevent",q:"Le Taillevent, 15 Rue Lamennais, Paris",ll:[48.8745,2.3014]},
+  vosges:{n:"孚日广场",q:"Place des Vosges, Paris",ll:[48.8556,2.3655]},
+  carnavalet:{n:"卡纳瓦雷博物馆",q:"Musée Carnavalet, Paris",ll:[48.8575,2.3625]},
+  picasso:{n:"毕加索美术馆",q:"Musée national Picasso-Paris",ll:[48.8598,2.3624]},
+  restoh:{n:"Restaurant H",q:"Restaurant H, 13 Rue Jean Beausire, Paris",ll:[48.8545,2.3680]},
+  crazy:{n:"疯马秀 Crazy Horse",q:"Crazy Horse Paris, 12 Avenue George V",ll:[48.8667,2.3010]},
+  invalides:{n:"荣军院",q:"Hôtel des Invalides, Paris",ll:[48.8566,2.3126]},
+  rodin:{n:"罗丹美术馆",q:"Musée Rodin, Paris",ll:[48.8553,2.3159]},
+  jacobine:{n:"La Jacobine",q:"La Jacobine, 59 Rue Saint-André des Arts, Paris",ll:[48.8534,2.3398]},
+  jetaime:{n:"爱墙",q:"Le Mur des je t'aime, Paris",ll:[48.8848,2.3387]},
+  tertre:{n:"小丘广场",q:"Place du Tertre, Paris",ll:[48.8865,2.3408]},
+  rose:{n:"粉红之家",q:"La Maison Rose, Paris",ll:[48.8874,2.3398]},
+  sacre:{n:"圣心堂",q:"Basilique du Sacré-Cœur de Montmartre",ll:[48.8867,2.3431]},
+  orly:{n:"奥利机场 ORY",q:"Paris Orly Airport",ll:[48.7262,2.3652],far:1},
+  bcnair:{n:"巴塞罗那机场 BCN",q:"Josep Tarradellas Barcelona-El Prat Airport",ll:[41.2974,2.0833],far:1},
+  acbcn:{n:"AC Hotel Victoria Suites",q:"AC Hotel Victoria Suites, Carrer de Beltran i Rózpide 7-9, 08034 Barcelona",ll:[41.3887,2.1283],home:1},
+  paco:{n:"Paco Meralgo",q:"Paco Meralgo, Carrer de Muntaner 171, Barcelona",ll:[41.3932,2.1510]},
+  pdg:{n:"感恩大道 Loewe 旗舰店",q:"Loewe Passeig de Gràcia 35, Barcelona",ll:[41.3913,2.1655]},
+  amatller:{n:"Chocolate Amatller",q:"Chocolate Amatller, Passeig de Gràcia 41, Barcelona",ll:[41.3917,2.1644]},
+  catedral:{n:"巴塞罗那主教座堂",q:"Catedral de Barcelona",ll:[41.3840,2.1762]},
+  vicens:{n:"Torrons Vicens",q:"Torrons Vicens, Barcelona Gothic Quarter",ll:[41.3829,2.1734]},
+  alpargatera:{n:"La Manual Alpargatera",q:"La Manual Alpargatera, Carrer d'Avinyó 7, Barcelona",ll:[41.3811,2.1768]},
+  gispert:{n:"Casa Gispert",q:"Casa Gispert, Carrer dels Sombrerers 23, Barcelona",ll:[41.3843,2.1819]},
+  campnou:{n:"Spotify Camp Nou",q:"Spotify Camp Nou, Barcelona",ll:[41.3809,2.1228]},
+  hisop:{n:"Restaurant Hisop",q:"Restaurant Hisop, Passatge de Marimon 9, Barcelona",ll:[41.3957,2.1453]},
+  sagrada:{n:"圣家堂",q:"Sagrada Família, Barcelona",ll:[41.4036,2.1744]},
+  batllo:{n:"巴特罗之家",q:"Casa Batlló, Barcelona",ll:[41.3916,2.1649]},
+  pedrera:{n:"米拉之家",q:"Casa Milà La Pedrera, Barcelona",ll:[41.3953,2.1619]},
+  guell:{n:"奎尔公园",q:"Park Güell, Barcelona",ll:[41.4145,2.1527]},
+  sol:{n:"格拉西亚区 太阳广场",q:"Plaça del Sol, Barcelona",ll:[41.4012,2.1575]},
+  smmar:{n:"海上圣母教堂",q:"Santa Maria del Mar, Barcelona",ll:[41.3838,2.1820]},
+  barceloneta:{n:"巴塞罗内塔海滩",q:"Platja de la Barceloneta, Barcelona",ll:[41.3784,2.1925]},
+  boqueria:{n:"波盖利亚市场",q:"Mercat de la Boqueria, Barcelona",ll:[41.3817,2.1716]},
+  eci:{n:"El Corte Inglés 加泰罗尼亚广场店",q:"El Corte Inglés Plaça de Catalunya, Barcelona",ll:[41.3874,2.1700]},
+  sfo:{n:"旧金山机场 SFO",q:"San Francisco International Airport",ll:[37.6213,-122.3790],far:1}
+};
+const PDT = {off:"-07:00",tzn:"PDT",tzid:"America/Los_Angeles"};
+
+/* ---------- days (stay = where you sleep that night) ---------- */
+const DAYS = [
+ {d:"2026-10-03",city:"巴黎",c:"#D24B4B",stay:"sthonore",theme:"落地，香榭丽舍和凯旋门看日落，早点回去倒时差",
+  items:[
+   {t:"13:50",p:"cdg",ttl:"DL290 抵达戴高乐机场",tag:"booked",note:"新的欧盟出入境系统 EES 首次入境要录指纹和照片，过关可能比以前慢。进城 RER B 或出租车，留足 2 小时。"},
+   {t:"16:00",p:"sthonore",ttl:"住处放行李",tag:"booked",note:"住处在卢浮宫和皇家宫殿旁边，附近随便吃点垫一下。"},
+   {t:"16:30",p:"champs",ttl:"香榭丽舍大道，浅浅逛街",note:"地铁 1 号线 Palais-Royal 上车，直达 George V。"},
+   {t:"18:15",p:"arc",ttl:"凯旋门登顶",tag:"book",note:"约 280 级台阶，没有游客电梯。今天日落约 19:25，登顶能把铁塔拍进画面。"},
+   {t:"19:45",p:"cocottes",ttl:"晚饭",tag:"tbd",note:"候选里 Les Cocottes Tour Eiffel 离铁塔最近，第一晚别跑远。定了哪家告诉我。"},
+   {t:"21:00",p:"troca",ttl:"Trocadéro 看铁塔整点闪灯（可选）",note:"天黑后每个整点闪 5 分钟。累了就直接回去。"}
+  ]},
+ {d:"2026-10-04",city:"巴黎",c:"#DD8A2A",stay:"sthonore",theme:"卢浮宫讲解，奥赛免费日。十月第一个周日，奥赛和橘园免费，人会很多",
+  alert:"8:30 在 Café Marly 坐下、9:00 就要到讲解集合点，只剩半小时还要算安检排队。早饭改 8:00 到，8:40 起身。好在从住处走过去只要 5 分钟。",
+  items:[
+   {t:"08:00",p:"marly",ttl:"Le Café Marly 早饭",tag:"warn",note:"最晚 8:40 离开去集合点。"},
+   {t:"09:00",end:"12:00",p:"louvre",ttl:"卢浮宫讲解",tag:"booked",note:"讲解结束后可以自由再逛一会儿，12:30 前出来。"},
+   {t:"12:45",p:"breizh",ttl:"Breizh Café 午饭",tag:"booked"},
+   {t:"13:45",p:"palaisroyal",ttl:"皇家宫殿花园 → 薇薇安拱廊街 → 艺术桥过河",note:"慢慢走到奥赛约 20 分钟。"},
+   {t:"15:30",p:"orsay",ttl:"奥赛博物馆（免费日）",tag:"booked",note:"用 15:30 这个时段，13:30 那个赶不上。约 17:30 开始清场，进门直奔五楼印象派。"},
+   {t:"18:30",ttl:"圣日耳曼一带晚饭",tag:"tbd",note:"周日很多餐厅休息，出门前确认营业。"},
+   {t:"21:00",p:"pontneuf",ttl:"塞纳河游船",tag:"tbd",note:"饭后步行几分钟到码头，坐完走回住处 15 分钟。也可以放到 10.8 晚上，定了告诉我。"}
+  ]},
+ {d:"2026-10-05",city:"巴黎",c:"#C49B1E",stay:"sthonore",theme:"杜乐丽到歌剧院一条线，下午回去休息，晚上情侣摄影",
+  items:[
+   {t:"09:30",p:"tuileries",ttl:"杜乐丽花园",note:"出门就是。"},
+   {t:"10:00",p:"orangerie",ttl:"橘园美术馆，莫奈《睡莲》",tag:"book",note:"橘园周二闭馆，今天去正好。10.4 如果已经顺路去过就跳过。"},
+   {t:"11:15",p:"concorde",ttl:"协和广场"},
+   {t:"11:30",p:"marine",ttl:"海军府",tag:"book"},
+   {t:"12:30",p:"bedford",ttl:"Le Victoria 午饭",tag:"tbd",note:"在玛德莲附近，比去圣日耳曼的 Louise 顺路。"},
+   {t:"14:00",p:"opera",ttl:"加尼叶歌剧院",tag:"book",note:"偶尔因彩排关闭部分区域，出门前看一眼官网日历。"},
+   {t:"15:30",p:"lafayette",ttl:"老佛爷百货，屋顶露台看全景（免费）"},
+   {t:"17:00",p:"sthonore",ttl:"回住处休息、换衣服",note:"从老佛爷走回去约 15 分钟。"},
+   {slot:"傍晚",ttl:"情侣摄影",tag:"booked",note:"今天日落约 19:20。集合时间和地点、会不会去铁塔机位，跟摄影师确认。"}
+  ]},
+ {d:"2026-10-06",city:"巴黎",c:"#3F9556",stay:"sthonore",theme:"西岱岛和拉丁区。卢浮宫周二闭馆，今天在左岸",
+  items:[
+   {t:"08:30",p:"isabelle",ttl:"La Maison d'Isabelle 可颂"},
+   {t:"09:00",p:"chapelle",ttl:"圣礼拜堂",tag:"book",note:"晴天上午彩窗最好看。"},
+   {t:"10:15",p:"notredame",ttl:"巴黎圣母院",tag:"book",note:"免费，但预约时段能少排很久。钟楼要爬 400 多级，已经登过凯旋门可以跳过。"},
+   {t:"11:30",p:"shakespeare",ttl:"莎士比亚书店"},
+   {t:"12:30",ttl:"拉丁区午饭",tag:"tbd",note:"La Jacobine 订在 10.8，今天换一家 bistro，不用订。"},
+   {t:"14:00",p:"pantheon",ttl:"先贤祠"},
+   {t:"15:15",p:"monge",ttl:"买药妆",note:"同一家店同一天满 100.01€ 可以退税，记得带护照。City Pharma 更便宜但人多。"},
+   {t:"17:30",p:"sthonore",ttl:"回住处换正装"},
+   {t:"19:30",p:"taillevent",ttl:"Le Taillevent",tag:"unbooked",note:"年轻人优惠还没约上。从住处打车约 15 分钟，着装偏正式。"}
+  ]},
+ {d:"2026-10-07",city:"巴黎",c:"#2A8C99",stay:"republique",theme:"换酒店，玛黑区一整天，晚上 H 和疯马秀",
+  alert:"Restaurant H 是 tasting menu，通常 2 小时以上，但 21:30 必须离开才赶得上 22:00 到疯马。能改到 19:00 最好；改不了就在入座时告诉餐厅 21:30 要走。",
+  items:[
+   {t:"10:00",p:"sthonore",ttl:"退房"},
+   {t:"10:15",p:"republique",ttl:"打车去 Crowne Plaza République 寄存行李",tag:"booked",note:"约 15 分钟。玛黑就在酒店南边，走路能到。"},
+   {t:"11:00",p:"vosges",ttl:"孚日广场",note:"玛黑很多店 11 点后才开门，现在去正好。"},
+   {t:"11:45",p:"carnavalet",ttl:"卡纳瓦雷博物馆（巴黎历史，免费）"},
+   {t:"13:00",ttl:"玛黑午饭"},
+   {t:"14:30",p:"picasso",ttl:"毕加索美术馆",tag:"book"},
+   {t:"16:00",ttl:"玛黑逛街，回酒店办入住"},
+   {t:"19:30",p:"restoh",ttl:"Restaurant H 晚饭",tag:"warn",note:"21:30 离开。"},
+   {t:"21:30",ttl:"地铁 1 号线 Saint-Paul → George V",note:"约 20 分钟。"},
+   {t:"22:30",p:"crazy",ttl:"疯马秀",tag:"booked",note:"22:00 前到场。散场后地铁 9 号线从 Alma-Marceau 直达 République，或者打车。"}
+  ]},
+ {d:"2026-10-08",city:"巴黎",c:"#3867C8",stay:"republique",theme:"荣军院和罗丹，La Jacobine 午饭，下午蒙马特看日落",
+  items:[
+   {t:"10:00",p:"invalides",ttl:"荣军院，拿破仑墓和军事博物馆",tag:"book",note:"酒店门口坐地铁 8 号线直达 La Tour-Maubourg。从 10.5 挪到今天：10.5 是每月第一个周一，只开部分展区。"},
+   {t:"11:15",p:"rodin",ttl:"罗丹美术馆和花园",tag:"book"},
+   {t:"12:30",p:"jacobine",ttl:"La Jacobine 午饭",tag:"booked"},
+   {t:"14:30",p:"jetaime",ttl:"蒙马特：爱墙"},
+   {t:"15:15",p:"tertre",ttl:"小丘广场"},
+   {t:"16:00",p:"rose",ttl:"粉红之家"},
+   {t:"19:00",p:"sacre",ttl:"圣心堂台阶看日落",note:"日落约 19:15。"},
+   {slot:"晚上",ttl:"三选一：登埃菲尔铁塔 / 奥赛夜场 / 游船",tag:"tbd",note:"铁塔要预约；奥赛周四开到 21:45；游船如果 10.4 没坐就放今晚。"}
+  ]},
+ {d:"2026-10-09",city:"巴黎 → 巴塞罗那",c:"#7658C2",stay:"acbcn",theme:"上午玛黑早午餐，中午出发，傍晚到巴塞罗那",
+  items:[
+   {slot:"上午",ttl:"退房，玛黑早午餐，补买",note:"Vueling 行李尺寸和重量卡得很严，药妆很重，提前称重，不够就在网上加购托运。"},
+   {t:"12:30",p:"republique",ttl:"从酒店出发去奥利机场",note:"地铁 11 号线到 Châtelet 换 14 号线直达奥利，约 50 分钟；行李多就打车。"},
+   {t:"15:30",p:"orly",ttl:"VY8009 奥利 → 巴塞罗那",tag:"booked"},
+   {t:"17:15",p:"bcnair",ttl:"抵达巴塞罗那机场",note:"酒店在城西 Les Corts，就在机场进城方向上，打车约 25 分钟。"},
+   {t:"18:30",p:"acbcn",ttl:"AC Hotel Victoria Suites 入住",tag:"booked"},
+   {t:"20:30",p:"paco",ttl:"Paco Meralgo 晚饭",tag:"booked",note:"从酒店打车约 15 分钟。"}
+  ]},
+ {d:"2026-10-10",city:"巴塞罗那",c:"#BF4580",stay:"acbcn",theme:"主要购物日，晚上诺坎普看球",
+  alert:"今天是四天里最适合购物的一天：10.11 是周日，大部分店关门；10.12 是国庆节，只有大商场确定开门。",
+  items:[
+   {t:"10:00",end:"13:00",p:"pdg",ttl:"感恩大道买奢侈品和轻奢",note:"Loewe 优先，也可以逛 Bimba y Lola、Tous、Camper、Massimo Dutti。酒店旁的 Maria Cristina 站坐地铁 L3 直达 Passeig de Gràcia。"},
+   {t:"12:30",p:"amatller",ttl:"Chocolate Amatller 买巧克力",note:"店在感恩大道 41 号，巴特罗之家隔壁，逛街时顺手买。"},
+   {t:"13:00",ttl:"附近午饭"},
+   {t:"13:45",p:"catedral",ttl:"哥特区：巴塞罗那主教座堂"},
+   {t:"14:15",p:"vicens",ttl:"Torrons Vicens 买牛轧糖"},
+   {t:"14:45",p:"alpargatera",ttl:"La Manual Alpargatera 草编鞋"},
+   {t:"15:30",p:"gispert",ttl:"Born 区 Casa Gispert 坚果"},
+   {t:"17:00",p:"acbcn",ttl:"回酒店放东西，休息"},
+   {t:"17:15",ttl:"步行去诺坎普",note:"从酒店走过去约 15 分钟，提前 1 小时到，安检和找座位都要时间。"},
+   {t:"18:30",p:"campnou",ttl:"巴萨 vs Getafe",tag:"booked",note:"西甲第 8 轮。比赛日前再看一眼开球时间有没有调整。"},
+   {t:"21:30",p:"hisop",ttl:"Restaurant Hisop",tag:"warn",note:"还是 20:30 的话一定要改：散场约 20:20，几万人一起出场，赶不上。改到 21:30 或 22:00。从球场走过去约 30 分钟。"}
+  ]},
+ {d:"2026-10-11",city:"巴塞罗那",c:"#8A6739",stay:"acbcn",theme:"高迪日：圣家堂、巴特罗之家、米拉之家。周日大部分商店不开",
+  items:[
+   {t:"11:15",p:"sagrada",ttl:"圣家堂",tag:"booked",note:"按时段入场，不能提前进，参观约 1.5 小时。酒店坐 L3 到 Diagonal 换 L5 到 Sagrada Família。"},
+   {t:"13:00",ttl:"午饭：La Triunfal 或 Tuscania",tag:"tbd",note:"选离圣家堂或感恩大道近的那家。"},
+   {t:"15:00",p:"batllo",ttl:"巴特罗之家",tag:"book"},
+   {t:"16:30",p:"pedrera",ttl:"米拉之家",tag:"book",note:"屋顶傍晚最好看。和巴特罗之家走路 5 分钟。"},
+   {slot:"晚上",ttl:"沿感恩大道散步，附近吃 tapas"}
+  ]},
+ {d:"2026-10-12",city:"巴塞罗那",c:"#1A977D",stay:"acbcn",theme:"西班牙国庆节。奎尔公园、格拉西亚区、Born 区，傍晚去海边",
+  items:[
+   {t:"09:30",p:"guell",ttl:"奎尔公园",tag:"book",note:"按预约时段入场，迟到可能进不去。早上人少光线好。"},
+   {t:"12:00",p:"sol",ttl:"步行到格拉西亚区午饭",note:"逛逛小广场和本地小店。"},
+   {t:"14:30",p:"smmar",ttl:"Born 区，海上圣母教堂"},
+   {t:"16:30",p:"barceloneta",ttl:"巴塞罗内塔海滩散步，看日落",note:"日落约 19:05。"},
+   {slot:"晚上",ttl:"海边海鲜饭",tag:"unbooked",note:"节假日人多，一定要提前订位。"},
+   {slot:"备用",p:"eci",ttl:"补买：El Corte Inglés 或 Glòries 商场",note:"大商场国庆节这天照常营业，感恩大道上的品牌店不一定开。"}
+  ]},
+ {d:"2026-10-13",city:"巴塞罗那 → 旧金山",c:"#667691",theme:"最后一轮伴手礼，下午飞回旧金山",
+  items:[
+   {t:"09:30",p:"boqueria",ttl:"波盖利亚市场，最后买一轮吃的",note:"周日和节假日不开，今天才能去。"},
+   {t:"10:30",p:"eci",ttl:"El Corte Inglés 顶楼美食区",note:"就在加泰罗尼亚广场，走路几分钟。"},
+   {t:"11:30",p:"acbcn",ttl:"回酒店拿行李",note:"从加泰罗尼亚广场坐 L3 或打车约 20 分钟。"},
+   {t:"12:15",ttl:"出发去机场"},
+   {t:"13:00",p:"bcnair",ttl:"到机场，先办退税，再托运",note:"法国的退税单去海关柜台人工盖章，要出示商品，所以巴黎买的东西别放进托运；西班牙的单在自助机扫。"},
+   {t:"16:05",p:"bcnair",ttl:"UA673 巴塞罗那 → 旧金山",tag:"booked",note:"飞行 12 小时 15 分钟。"},
+   {t:"19:20",tz:PDT,p:"sfo",ttl:"抵达旧金山",note:"美国海关：火腿和任何肉制品都不能带，真空包装也不行。"}
+  ]}
+];
+
+/* ---------- confirmed bookings (no confirmation numbers, ticket numbers or names) ---------- */
+const BOOKED = [
+ {d:"2026-10-03",t:"13:50",ttl:"达美 DL3842 + DL290",sub:"10.2 圣何塞 SJC → 洛杉矶 LAX 转机 → 巴黎戴高乐 CDG，10.3 13:50 落地",p:"cdg"},
+ {d:"2026-10-03",ttl:"巴黎住处 1",sub:"10.3 – 10.7，4 晚",p:"sthonore",addr:"165 Rue Saint-Honoré, 75001 Paris"},
+ {d:"2026-10-04",t:"09:00",ttl:"卢浮宫讲解",sub:"9:00–12:00",p:"louvre"},
+ {d:"2026-10-04",t:"12:45",ttl:"Breizh Café 午饭",sub:"两位",p:"breizh"},
+ {d:"2026-10-04",t:"15:30",ttl:"奥赛博物馆免费日预约",sub:"约了 13:30 和 15:30 两个时段，用 15:30",p:"orsay",addr:"Esplanade Valéry Giscard d'Estaing, 75007 Paris"},
+ {d:"2026-10-05",ttl:"情侣摄影",sub:"10.5 傍晚"},
+ {d:"2026-10-07",ttl:"Crowne Plaza Paris République",sub:"10.7 – 10.9，2 晚",p:"republique",addr:"10 Place de la République, 75011 Paris"},
+ {d:"2026-10-07",t:"19:30",ttl:"Restaurant H 晚饭",sub:"最好改到 19:00",p:"restoh",addr:"13 Rue Jean Beausire, 75004 Paris"},
+ {d:"2026-10-07",t:"22:30",ttl:"疯马秀",sub:"22:00 前到场",p:"crazy",addr:"12 Avenue George V, 75008 Paris"},
+ {d:"2026-10-08",t:"12:30",ttl:"La Jacobine 午饭",sub:"两位",p:"jacobine",addr:"59-61 Rue Saint-André des Arts, 75006 Paris"},
+ {d:"2026-10-09",t:"15:30",ttl:"伏林 VY8009",sub:"巴黎奥利 ORY 15:30 → 巴塞罗那 BCN 17:15",p:"orly"},
+ {d:"2026-10-09",ttl:"AC Hotel Victoria Suites",sub:"10.9 – 10.13，4 晚",p:"acbcn",addr:"Carrer de Beltran i Rózpide 7-9, 08034 Barcelona"},
+ {d:"2026-10-09",t:"20:30",ttl:"Paco Meralgo 晚饭",sub:"航班延误就打电话推迟",p:"paco",addr:"Carrer de Muntaner 171, Barcelona"},
+ {d:"2026-10-10",t:"18:30",ttl:"巴萨 vs Getafe",sub:"西甲第 8 轮",p:"campnou"},
+ {d:"2026-10-10",ttl:"Restaurant Hisop",sub:"要改到 21:30 或 22:00",p:"hisop",addr:"Passatge de Marimon 9, Barcelona"},
+ {d:"2026-10-11",t:"11:15",ttl:"圣家堂",sub:"按时段入场",p:"sagrada"},
+ {d:"2026-10-13",t:"16:05",ttl:"美联航 UA673",sub:"巴塞罗那 BCN 16:05 → 旧金山 SFO 19:20（PDT），波音 787-9",p:"bcnair"}
+];
+
+/* ---------- todo (plain list, edited by hand) ---------- */
+const TODO = [
+ {h:"尽快订",items:[
+  {u:1,t:"巴特罗之家 10.11 15:00、米拉之家 10.11 16:30",w:""},
+  {u:1,t:"奎尔公园时段票，10.12 9:30",w:""},
+  {u:1,t:"10.12 晚上海边海鲜饭餐厅",w:"国庆节人多"},
+  {t:"凯旋门登顶票，10.3 18:15 左右",w:""},
+  {t:"圣礼拜堂和圣母院时段，10.6 上午",w:""},
+  {t:"橘园，10.5 10:00（10.4 免费日也行，同样要约）",w:""},
+  {t:"海军府、加尼叶歌剧院，10.5",w:""},
+  {t:"毕加索美术馆，10.7 14:30",w:""},
+  {t:"荣军院、罗丹美术馆，10.8 上午",w:""}
+ ]},
+ {h:"要改或要做决定",items:[
+  {u:1,t:"Restaurant Hisop 改到 21:30 或 22:00",w:"10.10，球赛散场约 20:20"},
+  {u:1,t:"Restaurant H 改到 19:00，或入座时说明 21:30 离开",w:"10.7，后面接疯马秀"},
+  {t:"Le Taillevent 年轻人优惠，约不上的话 10.6 晚饭换哪家",w:""},
+  {t:"10.3 晚饭选一家",w:"候选：Les Cocottes Tour Eiffel、L'Atypic、JJ Beaumarchais、Boutary、Les Antiquaires"},
+  {t:"塞纳河游船放 10.4 晚还是 10.8 晚，然后订票",w:""},
+  {t:"10.8 晚上：铁塔登顶、奥赛夜场还是游船",w:""},
+  {t:"10.11 午饭：La Triunfal 还是 Tuscania",w:""},
+  {t:"情侣摄影的集合时间、地点和机位",w:"10.5 傍晚"}
+ ]},
+ {h:"发我截图或信息",items:[
+  {t:"DL3842 从圣何塞起飞的时间",w:"收据上没有时间，补上后倒计时从出发算起"},
+  {t:"卢浮宫讲解、疯马秀、球票、圣家堂的订单",w:"补集合点、地址和电话"}
+ ]},
+ {h:"出发前",items:[
+  {t:"UA673 选座",w:"两人都还没选，想坐一起早点选"},
+  {t:"VY8009 值机，确认托运行李额度",w:""},
+  {t:"检查申根签证和回美入境文件的有效期",w:"覆盖 10.3–10.13"},
+  {t:"银行卡开通境外交易，带一张备用卡",w:""}
+ ]}
+];
+
+const TIPS = [
+ {h:"过关与交通",p:["欧盟出入境系统 EES 已经上线，第一次入境要录指纹和拍照，戴高乐过关比以前慢，落地后按 2 小时算。","巴黎第一个住处在地铁 1 号线 Palais-Royal 旁边，香榭丽舍、凯旋门一条线直达。第二个住处在 République，地铁 8、9、11 号线都有。","巴塞罗那酒店旁边是地铁 L3 Maria Cristina 站，L3 直达感恩大道、兰布拉大道和波盖利亚市场。诺坎普走路就到。"]},
+ {h:"防扒手",p:["巴黎：铁塔周围、蒙马特、地铁 1 号线最多。巴塞罗那：兰布拉大道、地铁、海滩、球场附近更严重。包背在身前，手机不放桌上。"]},
+ {h:"吃饭节奏",p:["巴黎周日不少餐厅休息，周日晚饭提前确认。西班牙午饭 14 点、晚饭 21 点左右，20 点前很多餐厅还没开。","法国账单已含服务费，满意可以留几欧零钱。"]},
+ {h:"购物和退税",p:["法国同一家店同一天满 100.01€ 可退税；西班牙没有起点金额，结账时说 tax free，出示护照。","你们最后从巴塞罗那离开欧盟，所以法国和西班牙的退税都在巴塞罗那机场办。法国的单要去海关柜台人工盖章，还要出示商品，巴黎买的东西别放进托运；西班牙的单在自助机扫。10.13 已经留了时间。","10.11 周日大部分店关门；10.12 国庆节只有大商场确定开门。"]},
+ {h:"带回美国",p:["西班牙火腿和任何肉制品都不能带进美国，真空包装的也不行。橄榄油、巧克力、牛轧糖可以带，液体放托运。"]},
+ {h:"天气和穿着",p:["十月巴黎大约 10–18°C，常下小雨，带防风外套和折叠伞。巴塞罗那暖一些，白天可以短袖。","Le Taillevent 着装偏正式。凯旋门、圣心堂、奎尔公园都要爬坡或爬楼，穿好走的鞋。"]},
+ {h:"电源和电话",p:["法国和西班牙都是 230V，两圆孔插头。","紧急电话 112，法国西班牙通用。"]}
+];
+
+/* ---------- theme: dark at night (viewer's local time) or when system is dark ---------- */
+const mq = matchMedia("(prefers-color-scheme: dark)");
+function applyTheme(){
+  const h = new Date().getHours();
+  const dark = mq.matches || h >= 19 || h < 7;
+  document.documentElement.dataset.theme = dark ? "dark" : "light";
+  document.querySelector('meta[name="theme-color"]').content = dark ? "#0E1621" : "#EDF1F5";
+}
+applyTheme(); mq.addEventListener?.("change", applyTheme); setInterval(applyTheme, 60000);
+
+/* ---------- links ---------- */
+const nav1 = p => `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(p.q)}`;
+const navAll = ps => "https://www.google.com/maps/dir//" + ps.slice(0,9).map(p => encodeURIComponent(p.q)).join("/");
+const placeLink = (key, label) => { const p = P[key]; return p ? `<a href="${nav1(p)}" target="_blank" rel="noopener">${esc(label || p.n)}</a>` : esc(label); };
+const TAGTXT = {booked:"已订",book:"需预约",unbooked:"未订",tbd:"待定",warn:"注意"};
+
+/* ---------- formatting ---------- */
+const fmtTZ = (dt, tzid) => new Intl.DateTimeFormat("zh-CN",{timeZone:tzid,month:"numeric",day:"numeric",weekday:"short",hour:"2-digit",minute:"2-digit",hour12:false}).format(dt);
+function localNote(dt, tz){
+  const vz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const o1 = new Intl.DateTimeFormat("en",{timeZone:vz,timeZoneName:"shortOffset"}).formatToParts(dt).find(x=>x.type==="timeZoneName")?.value;
+  if (o1 === "GMT" + tz.off.replace(/^([+-])0?(\d+):00$/,"$1$2")) return "";
+  const s = new Intl.DateTimeFormat("zh-CN",{timeZone:vz,month:"numeric",day:"numeric",hour:"2-digit",minute:"2-digit",hour12:false,timeZoneName:"short"}).format(dt);
+  return `你手机所在时区：${s}`;
+}
+const dayLabel = d => { const dt = at(d,"12:00"); const [,m,dd] = d.split("-"); return {md:`${+m}.${+dd}`, wk:WK[dt.getUTCDay()]}; };
+const todayCEST = () => new Intl.DateTimeFormat("en-CA",{timeZone:TZID}).format(new Date());
+
+/* ---------- events for countdown ---------- */
+const EVENTS = [];
+DAYS.forEach(day => day.items.forEach(it => { if (it.t) EVENTS.push({when:at(day.d,it.t,it.tz), tz:it.tz||CEST, ttl:it.ttl, p:it.p, d:day.d}); }));
+EVENTS.sort((a,b)=>a.when-b.when);
+
+function renderFocus(){
+  const now = new Date(), el = document.getElementById("focus");
+  const nx = EVENTS.find(e => e.when > now);
+  if (!nx){ el.innerHTML = `<div class="lbl">此刻关注</div><div class="what">旅程结束，一路平安到家</div>`; return false; }
+  const ms = nx.when - now, s = Math.floor(ms/1000);
+  const D = Math.floor(s/86400), H = Math.floor(s%86400/3600), M = Math.floor(s%3600/60), S = s%60;
+  const ln = localNote(nx.when, nx.tz);
+  if (!el.dataset.k || el.dataset.k !== String(+nx.when)){
+    el.dataset.k = String(+nx.when);
+    el.innerHTML = `<div class="lbl">此刻关注 · 下一项</div>
+      <div class="what">${esc(nx.ttl)}</div>
+      <div class="when">${esc(fmtTZ(nx.when, nx.tz.tzid))} ${nx.tz.tzn}（UTC${nx.tz.off.replace(/^([+-])0?(\d+):00$/,"$1$2")}）${ln?`<span class="local">${esc(ln)}</span>`:""}</div>
+      <div class="clock"><div><b id="cD"></b><span>天</span></div><div><b id="cH"></b><span>时</span></div><div><b id="cM"></b><span>分</span></div><div><b id="cS"></b><span>秒</span></div></div>
+      ${nx.p?`<a class="go" href="${nav1(P[nx.p])}" target="_blank" rel="noopener">导航到${esc(P[nx.p].n)}</a>`:""}
+      <a class="go" href="#d${nx.d}" style="margin-left:14px">看当天行程</a>`;
+  }
+  const pad = n => String(n).padStart(2,"0");
+  document.getElementById("cD").textContent = D;
+  document.getElementById("cH").textContent = pad(H);
+  document.getElementById("cM").textContent = pad(M);
+  document.getElementById("cS").textContent = pad(S);
+  return true;
+}
+
+/* ---------- hand-drawn svg ---------- */
+function rng(seed){ let s = seed >>> 0 || 1; return () => (s = (s * 1664525 + 1013904223) >>> 0) / 4294967296; }
+function proj(b, W){
+  const k = Math.cos((b.lat[0]+b.lat[1])/2*Math.PI/180);
+  const H = W * (b.lat[1]-b.lat[0]) / ((b.lon[1]-b.lon[0])*k);
+  return {W, H, f:([la,lo]) => [ (lo-b.lon[0])/(b.lon[1]-b.lon[0])*W, (b.lat[1]-la)/(b.lat[1]-b.lat[0])*H ]};
+}
+function wobble(pts, seed, amt=0.14){
+  if (pts.length < 2) return "";
+  const r = rng(seed); let d = `M${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)}`;
+  for (let i=1;i<pts.length;i++){
+    const [x0,y0]=pts[i-1],[x1,y1]=pts[i], dx=x1-x0, dy=y1-y0, L=Math.hypot(dx,dy)||1;
+    const off=(r()-.5)*2*amt*L, mx=(x0+x1)/2 - dy/L*off, my=(y0+y1)/2 + dx/L*off;
+    d += ` Q${mx.toFixed(1)} ${my.toFixed(1)} ${x1.toFixed(1)} ${y1.toFixed(1)}`;
+  }
+  return d;
+}
+const DEFS = `<defs><filter id="rough" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="7"/><feDisplacementMap in="SourceGraphic" scale="3.2"/></filter></defs>`;
+const BOX = {
+  paris:{lat:[48.836,48.893],lon:[2.272,2.386],
+    water:[[48.8400,2.2720],[48.8480,2.2820],[48.8555,2.2885],[48.8600,2.2945],[48.8638,2.3010],[48.8650,2.3100],[48.8640,2.3200],[48.8610,2.3300],[48.8578,2.3400],[48.8540,2.3500],[48.8500,2.3600],[48.8445,2.3670],[48.8385,2.3765],[48.8360,2.3860]],
+    label:[48.8905,2.2760,"Paris"], note:[48.8400,2.3500,"塞纳河"]},
+  bcn:{lat:[41.360,41.422],lon:[2.113,2.203],
+    sea:[[41.3600,2.1740],[41.3690,2.1770],[41.3735,2.1825],[41.3730,2.1870],[41.3775,2.1905],[41.3845,2.1970],[41.3900,2.2030]],
+    label:[41.4200,2.1160,"Barcelona"], note:[41.3660,2.1950,"地中海"]}
+};
+function backdrop(key, pr){
+  const b = BOX[key]; let s = DEFS;
+  s += `<rect width="${pr.W}" height="${pr.H}" fill="var(--land)" rx="8"/>`;
+  if (b.water){
+    const pts = b.water.map(pr.f);
+    s += `<path d="${wobble(pts,11,.05)}" fill="none" stroke="var(--water)" stroke-width="14" stroke-linecap="round" filter="url(#rough)"/>`;
+    s += `<path d="${wobble(pts,11,.05)}" fill="none" stroke="var(--waterline)" stroke-width="1.2" stroke-dasharray="2 4" filter="url(#rough)"/>`;
+  }
+  if (b.sea){
+    const pts = b.sea.map(pr.f);
+    s += `<path d="${wobble(pts,5,.08)} L${pr.W} ${pr.H*0.55} L${pr.W} ${pr.H} L${pts[0][0]} ${pr.H} Z" fill="var(--water)" filter="url(#rough)"/>`;
+    s += `<path d="${wobble(pts,5,.08)}" fill="none" stroke="var(--waterline)" stroke-width="1.3" filter="url(#rough)"/>`;
+  }
+  const [la,lo,t] = b.label, [x,y] = pr.f([la,lo]);
+  s += `<text class="citylabel" x="${x}" y="${y+4}">${t}</text>`;
+  const [nx,ny] = pr.f(b.note.slice(0,2));
+  s += `<text x="${nx}" y="${ny}" font-size="11" fill="var(--waterline)" font-style="italic">${b.note[2]}</text>`;
+  return s;
+}
+function house(x, y, c, label){
+  return `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)})"><path d="M-9 1 L0 -9 L9 1 L6 1 L6 9 L-6 9 L-6 1 Z" fill="var(--surface)" stroke="${c}" stroke-width="2.2" stroke-linejoin="round"/><rect x="-2" y="3" width="4" height="6" fill="${c}"/></g>${label?`<text class="svglabel" x="${(x+12).toFixed(1)}" y="${(y+14).toFixed(1)}">${esc(label)}</text>`:""}`;
+}
+function stayRanges(){
+  const m = {};
+  DAYS.forEach(d => { if (!d.stay) return; const {md} = dayLabel(d.d); (m[d.stay] ||= []).push(md); });
+  return m;
+}
+function inBox(b, ll){ return ll[0]>=b.lat[0]&&ll[0]<=b.lat[1]&&ll[1]>=b.lon[0]&&ll[1]<=b.lon[1]; }
+const dayStops = day => { const seen=new Set(), out=[]; day.items.forEach(it=>{ if(it.p&&!seen.has(it.p)){seen.add(it.p); out.push(it.p);} }); return out; };
+
+function drawOverview(svgId, lgId, key){
+  const b = BOX[key], pr = proj(b, 640), svg = document.getElementById(svgId);
+  svg.setAttribute("viewBox",`0 0 ${pr.W} ${pr.H.toFixed(0)}`);
+  let s = backdrop(key, pr), lg = "";
+  DAYS.forEach((day,i) => {
+    const keys = dayStops(day).filter(k => !P[k].far && !P[k].home && inBox(b,P[k].ll));
+    if (!keys.length) return;
+    const pts = keys.map(k => pr.f(P[k].ll));
+    s += `<a href="#d${day.d}"><path d="${wobble(pts,i*97+3)}" fill="none" stroke="${day.c}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity=".9" filter="url(#rough)"/></a>`;
+    keys.forEach((k,j) => { const [x,y]=pts[j]; s += `<a href="${nav1(P[k])}" target="_blank" rel="noopener"><title>${esc(P[k].n)}</title><circle cx="${x}" cy="${y}" r="${j===0?7:4.5}" fill="${j===0?day.c:"var(--surface)"}" stroke="${day.c}" stroke-width="2.2"/></a>`; });
+    const [x0,y0]=pts[0], {md} = dayLabel(day.d);
+    s += `<text class="svglabel" x="${x0+9}" y="${y0-8}">${md}</text>`;
+    lg += `<a href="#d${day.d}"><i style="background:${day.c}"></i>${md} ${WK[at(day.d,"12:00").getUTCDay()]}</a>`;
+  });
+  const sr = stayRanges();
+  Object.keys(sr).forEach(k => { if (!inBox(b,P[k].ll)) return; const [x,y] = pr.f(P[k].ll), last = sr[k][sr[k].length-1];
+    const [mm,dd] = last.split("."); const out = `${mm}.${+dd+1}`;
+    s += `<a href="${nav1(P[k])}" target="_blank" rel="noopener"><title>${esc(P[k].n)}</title>${house(x,y,"var(--ink)",`住 ${sr[k][0]}–${out}`)}</a>`; });
+  svg.innerHTML = s;
+  lg += `<span style="display:inline-flex;align-items:center;gap:6px"><svg width="18" height="18" viewBox="-10 -10 20 20" aria-hidden="true">${house(0,0,"currentColor")}</svg>住处</span>`;
+  document.getElementById(lgId).innerHTML = lg;
+}
+
+function drawDayMap(svg, day, idx){
+  const isParis = k => P[k].ll[0] > 45;
+  const ref = day.stay || dayStops(day).find(k => !P[k].far);
+  const keys = dayStops(day).filter(k => !P[k].far && isParis(k) === isParis(ref));
+  const extra = day.stay && !keys.includes(day.stay) ? [day.stay] : [];
+  if (!keys.length){ svg.outerHTML = `<p class="sub" style="margin:8px 4px">今天主要在路上，没有市内路线。</p>`; return; }
+  const all = keys.concat(extra), lats = all.map(k=>P[k].ll[0]), lons = all.map(k=>P[k].ll[1]);
+  let la0=Math.min(...lats),la1=Math.max(...lats),lo0=Math.min(...lons),lo1=Math.max(...lons);
+  const padLa=Math.max((la1-la0)*.18,.003), padLo=Math.max((lo1-lo0)*.18,.004);
+  const b = {lat:[la0-padLa,la1+padLa],lon:[lo0-padLo,lo1+padLo]};
+  // keep a sane aspect ratio
+  const k = Math.cos((b.lat[0]+b.lat[1])/2*Math.PI/180), ar = (b.lat[1]-b.lat[0])/((b.lon[1]-b.lon[0])*k);
+  if (ar > 1.1){ const need=(b.lat[1]-b.lat[0])/1.1/k, add=(need-(b.lon[1]-b.lon[0]))/2; b.lon=[b.lon[0]-add,b.lon[1]+add]; }
+  if (ar < .62){ const need=(b.lon[1]-b.lon[0])*k*.62, add=(need-(b.lat[1]-b.lat[0]))/2; b.lat=[b.lat[0]-add,b.lat[1]+add]; }
+  const pr = proj(b, 600);
+  const city = P[keys[0]].ll[0] > 45 ? "paris" : "bcn";
+  let s = DEFS + `<rect width="${pr.W}" height="${pr.H}" fill="var(--land)" rx="8"/>`;
+  const base = BOX[city];
+  if (base.water){ const pts = base.water.map(pr.f); s += `<path d="${wobble(pts,11,.05)}" fill="none" stroke="var(--water)" stroke-width="22" stroke-linecap="round" filter="url(#rough)"/>`; }
+  if (base.sea){ const pts = base.sea.map(pr.f); s += `<path d="${wobble(pts,5,.08)} L${pr.W*3} ${pr.H*.5} L${pr.W*3} ${pr.H*3} L${pts[0][0]} ${pr.H*3} Z" fill="var(--water)" filter="url(#rough)"/>`; }
+  const pts = keys.map(q => pr.f(P[q].ll));
+  s += `<path d="${wobble(pts,idx*53+1,.16)}" fill="none" stroke="${day.c}" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="9 7" filter="url(#rough)"/>`;
+  extra.forEach(q => { const [x,y] = pr.f(P[q].ll); s += `<a href="${nav1(P[q])}" target="_blank" rel="noopener"><title>${esc(P[q].n)}</title>${house(x,y,day.c,"今晚住这里")}</a>`; });
+  let n = 0; const placed = [];
+  const ly = (x,y,right,w) => { let yy = y+4; for (let t=0;t<6;t++){ const x0 = right?x+17:x-17-w, x1 = x0+w; if (!placed.some(r => x0<r[2] && x1>r[0] && Math.abs(yy-r[1])<14)) break; yy += (t%2?-1:1)*14*(t+1); } placed.push([right?x+17:x-17-w, yy, right?x+17+w:x-17]); return yy; };
+  keys.forEach((q,j) => {
+    const [x,y] = pts[j], right = x < pr.W*0.62;
+    if (P[q].home){ s += `<a href="${nav1(P[q])}" target="_blank" rel="noopener"><title>${esc(P[q].n)}</title>${house(x,y,day.c)}<text class="svglabel" x="${right?x+15:x-15}" y="${y+4}" text-anchor="${right?"start":"end"}" font-size="12">${esc(P[q].n)}</text></a>`; return; }
+    n++;
+    s += `<a href="${nav1(P[q])}" target="_blank" rel="noopener"><title>${esc(P[q].n)}</title>
+      <circle cx="${x}" cy="${y}" r="12" fill="${day.c}" stroke="var(--surface)" stroke-width="2.5"/>
+      <text x="${x}" y="${y+4.5}" text-anchor="middle" font-size="13" font-weight="700" fill="#fff" font-family="var(--num)">${n}</text>
+      <text class="svglabel" x="${right?x+17:x-17}" y="${ly(x,y,right,P[q].n.length*9)}" text-anchor="${right?"start":"end"}" font-size="12">${esc(P[q].n)}</text></a>`;
+  });
+  svg.setAttribute("viewBox",`0 0 ${pr.W} ${pr.H.toFixed(0)}`);
+  svg.innerHTML = s;
+}
+
+/* ---------- render sections ---------- */
+function renderBooked(){
+  document.getElementById("bk").innerHTML = BOOKED.map(b => {
+    const {md,wk} = dayLabel(b.d);
+    const time = b.t ? `${md} ${wk} ${b.t} ${TZN}` : `${md} ${wk}`;
+    const title = b.p ? placeLink(b.p, b.ttl) : esc(b.ttl);
+    return `<article><h3>${title}</h3><div class="meta">${esc(time)}　${esc(b.sub||"")}</div>
+      ${b.addr?`<dl><dt>地址</dt><dd>${placeLink(b.p,b.addr)}</dd></dl>`:""}</article>`;
+  }).join("");
+}
+function renderDays(){
+  const today = todayCEST();
+  document.getElementById("dayList").innerHTML = DAYS.map((day,i) => {
+    const {md,wk} = dayLabel(day.d), stops = dayStops(day).map(k=>P[k]);
+    const rows = day.items.map(it => {
+      const tm = it.t ? `<div class="tm" data-at="${+at(day.d,it.t,it.tz)}">${it.t}${it.end?`<br>–${it.end}`:""}<small>${(it.tz||CEST).tzn}</small></div>` : `<div class="tm slot">${esc(it.slot||"")}</div>`;
+      const tag = it.tag ? `<span class="tag ${it.tag}">${TAGTXT[it.tag]}</span>` : "";
+      const ttl = it.p ? placeLink(it.p, it.ttl) : esc(it.ttl);
+      return `<li data-end="${it.t?+at(day.d,it.end||it.t,it.tz)+3600e3:""}">${tm}<div class="it"><div class="ttl">${ttl}${tag}</div>${it.note?`<div class="note">${esc(it.note)}</div>`:""}</div></li>`;
+    }).join("");
+    return `<article class="day" id="d${day.d}" style="--c:${day.c}">
+      <header><h3><span class="d">${md}</span>${wk}<span class="city">${esc(day.city)}</span>${day.d===today?`<span class="today">今天</span>`:""}</h3>
+        <p class="theme">${esc(day.theme)}</p>${day.stay?`<p class="theme">今晚住：${placeLink(day.stay)}</p>`:""}
+        ${day.alert?`<p class="alert"><b>注意</b>　${esc(day.alert)}</p>`:""}
+        <div class="tools"><button class="btn" type="button" aria-expanded="false" data-map="${i}">展开当日路线图</button>
+        ${stops.length>1?`<a class="btn primary" href="${navAll(stops)}" target="_blank" rel="noopener">全天多点导航（${Math.min(stops.length,9)} 站）</a>`:""}</div>
+      </header>
+      <div class="daymap" id="m${i}" hidden><svg role="img" aria-label="${md} 路线图"></svg></div>
+      <ol class="tl">${rows}</ol></article>`;
+  }).join("");
+  document.querySelectorAll("[data-map]").forEach(btn => btn.addEventListener("click", () => toggleMap(btn)));
+  const ti = DAYS.findIndex(d => d.d === today);
+  if (ti >= 0) toggleMap(document.querySelector(`[data-map="${ti}"]`));
+}
+function toggleMap(btn){
+  const i = +btn.dataset.map, box = document.getElementById("m"+i), open = box.hidden;
+  if (open && !box.dataset.done){ drawDayMap(box.querySelector("svg"), DAYS[i], i); box.dataset.done = 1; }
+  box.hidden = !open; btn.setAttribute("aria-expanded", String(open));
+  btn.textContent = open ? "收起路线图" : "展开当日路线图";
+}
+function markPast(){
+  const now = Date.now();
+  document.querySelectorAll("ol.tl li[data-end]").forEach(li => { const e = +li.dataset.end; li.classList.toggle("past", !!e && e < now); });
+}
+function renderTodo(){
+  document.getElementById("todoList").innerHTML = TODO.map(g =>
+    `<div class="todohead">${esc(g.h)}</div><ul class="todo">${g.items.map(x=>`<li class="${x.u?"urgent":""}">${esc(x.t)}${x.w?`<span class="when">${esc(x.w)}</span>`:""}</li>`).join("")}</ul>`).join("");
+}
+function renderTips(){
+  document.getElementById("tipList").innerHTML = TIPS.map(t=>`<article><h3>${esc(t.h)}</h3>${t.p.map(x=>`<p>${esc(x)}</p>`).join("")}</article>`).join("");
+}
+
+renderBooked(); renderDays(); renderTodo(); renderTips();
+drawOverview("mapParis","lgParis","paris"); drawOverview("mapBcn","lgBcn","bcn");
+markPast(); setInterval(markPast, 60000);
+if (renderFocus()) setInterval(renderFocus, 1000);
+if ("serviceWorker" in navigator && location.protocol === "https:") navigator.serviceWorker.register("/sw.js").catch(()=>{});
+</script>
+</body>
+</html>
