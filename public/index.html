@@ -85,7 +85,16 @@ figure.map figcaption{font-size:13px;color:var(--muted);padding:6px 4px 2px}
 
 /* days */
 .day{background:var(--surface);border:1px solid var(--rule);border-radius:12px;margin-bottom:16px;overflow:hidden}
-.day > header{padding:14px 16px 12px;border-top:6px solid var(--c)}
+.day > summary{list-style:none;cursor:pointer;padding:14px 44px 12px 16px;border-top:6px solid var(--c);position:relative;-webkit-tap-highlight-color:transparent}
+.day > summary::-webkit-details-marker{display:none}
+.day > summary::after{content:"";position:absolute;right:18px;top:22px;width:9px;height:9px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);transition:transform .2s}
+.day[open] > summary::after{transform:rotate(-135deg);top:26px}
+.day > summary:hover h3{text-decoration:underline;text-decoration-color:var(--c);text-underline-offset:4px}
+.daybody{padding:0 16px 12px}
+.daybody .theme:first-child{margin-top:0}
+.day ol.tl{margin:0 -16px -12px}
+.daymap{margin:10px -4px 0}
+.dayctl{display:flex;justify-content:flex-end;margin:-6px 0 10px}
 .day h3{margin:0;font:700 19px/1.3 var(--serif);display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
 .day h3 .d{font-family:var(--num);font-variant-numeric:lining-nums}
 .day h3 .city{font:500 13px var(--sans);color:var(--muted)}
@@ -97,7 +106,6 @@ figure.map figcaption{font-size:13px;color:var(--muted);padding:6px 4px 2px}
 .btn{appearance:none;font:500 14px var(--sans);color:var(--ink);background:transparent;border:1px solid var(--rule);border-radius:8px;padding:7px 12px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
 .btn:hover{border-color:var(--ink)}
 .btn.primary{background:var(--c);border-color:var(--c);color:#fff}
-.daymap{padding:0 12px 4px}
 .daymap[hidden]{display:none}
 .daymap svg{width:100%;height:auto;display:block;background:var(--land);border-radius:8px}
 ol.tl{list-style:none;margin:0;padding:4px 0 8px}
@@ -170,6 +178,7 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);text-align:center}
   <section id="days">
     <h2>逐日行程</h2>
     <p class="sub">带下划线的地点点开就是 Google 地图导航。标签：<span class="tag booked">已订</span><span class="tag book">需预约</span><span class="tag unbooked">未订</span><span class="tag tbd">待定</span></p>
+    <div class="dayctl"><button class="btn" type="button" id="allDays">全部展开</button></div>
     <div id="dayList"></div>
   </section>
 
@@ -294,17 +303,17 @@ const DAYS = [
    {t:"18:30",ttl:"圣日耳曼一带晚饭",tag:"tbd",note:"周日很多餐厅休息，出门前确认营业。"},
    {t:"21:00",p:"pontneuf",ttl:"塞纳河游船",tag:"tbd",note:"饭后步行几分钟到码头，坐完走回住处 15 分钟。也可以放到 10.8 晚上，定了告诉我。"}
   ]},
- {d:"2026-10-05",city:"巴黎",c:"#C49B1E",stay:"sthonore",theme:"杜乐丽到歌剧院一条线，下午回去休息，晚上情侣摄影",
+ {d:"2026-10-05",city:"巴黎",c:"#C49B1E",stay:"sthonore",theme:"杜乐丽到歌剧院一条线，下午回去换装，17:00 情侣摄影",
   items:[
    {t:"09:30",p:"tuileries",ttl:"杜乐丽花园",note:"出门就是。"},
    {t:"10:00",p:"orangerie",ttl:"橘园美术馆，莫奈《睡莲》",tag:"book",note:"橘园周二闭馆，今天去正好。10.4 如果已经顺路去过就跳过。"},
    {t:"11:15",p:"concorde",ttl:"协和广场"},
    {t:"11:30",p:"marine",ttl:"海军府",tag:"book"},
    {t:"12:30",p:"bedford",ttl:"Le Victoria 午饭",tag:"tbd",note:"在玛德莲附近，比去圣日耳曼的 Louise 顺路。"},
-   {t:"14:00",p:"opera",ttl:"加尼叶歌剧院",tag:"book",note:"偶尔因彩排关闭部分区域，出门前看一眼官网日历。"},
-   {t:"15:30",p:"lafayette",ttl:"老佛爷百货，屋顶露台看全景（免费）"},
-   {t:"17:00",p:"sthonore",ttl:"回住处休息、换衣服",note:"从老佛爷走回去约 15 分钟。"},
-   {slot:"傍晚",ttl:"情侣摄影",tag:"booked",note:"今天日落约 19:20。集合时间和地点、会不会去铁塔机位，跟摄影师确认。"}
+   {t:"13:45",p:"opera",ttl:"加尼叶歌剧院",tag:"book",note:"偶尔因彩排关闭部分区域，出门前看一眼官网日历。"},
+   {t:"14:45",p:"lafayette",ttl:"老佛爷百货，屋顶露台看全景（免费）",note:"今天别买太多，拍照前还要回去换衣服。在这里买的话不同品牌当天能合成一张退税单（退 12%），用一个人的护照，要纸质单。"},
+   {t:"15:45",p:"sthonore",ttl:"回住处休息、换衣服、化妆",note:"从老佛爷走回去约 15 分钟。按集合地点留足路上的时间。"},
+   {t:"17:00",ttl:"情侣摄影集合",tag:"booked",note:"今天日落约 19:20。集合地点、会不会去铁塔机位，跟摄影师确认。"}
   ]},
  {d:"2026-10-06",city:"巴黎",c:"#3F9556",stay:"sthonore",theme:"西岱岛和拉丁区。卢浮宫周二闭馆，今天在左岸",
   items:[
@@ -314,7 +323,7 @@ const DAYS = [
    {t:"11:30",p:"shakespeare",ttl:"莎士比亚书店"},
    {t:"12:30",ttl:"拉丁区午饭",tag:"tbd",note:"La Jacobine 订在 10.8，今天换一家 bistro，不用订。"},
    {t:"14:00",p:"pantheon",ttl:"先贤祠"},
-   {t:"15:15",p:"monge",ttl:"买药妆",note:"同一家店同一天满 100.01€ 可以退税，记得带护照。City Pharma 更便宜但人多。"},
+   {t:"15:15",p:"monge",ttl:"买药妆",note:"同一家店同一天满 100.01€ 才能退税，一次在一家买够，用一个人的护照开单。跟店员说从西班牙离境，要纸质退税单和回邮信封。City Pharma 更便宜但人多。"},
    {t:"17:30",p:"sthonore",ttl:"回住处换正装"},
    {t:"19:30",p:"taillevent",ttl:"Le Taillevent",tag:"unbooked",note:"年轻人优惠还没约上。从住处打车约 15 分钟，着装偏正式。"}
   ]},
@@ -366,7 +375,7 @@ const DAYS = [
    {t:"12:00",p:"kiss",ttl:"亲吻墙"},
    {t:"12:30",p:"joncake",ttl:"Jon Cake 蛋糕",note:"午饭前别吃太多，买了带走也行。"},
    {t:"13:30",p:"triunfal",ttl:"La Triunfal 午饭",tag:"book",note:"在凯旋门旁边，从 Born 区走过去约 10 分钟。人气高，最好订位。"},
-   {t:"15:00",end:"16:30",p:"pdg",ttl:"感恩大道购物",note:"Loewe 优先，也可以逛 Bimba y Lola、Tous、Camper、Massimo Dutti。Chocolate Amatller 在 41 号，巴特罗之家隔壁。从凯旋门坐 L1 到 Urquinaona 换 L4，或打车 10 分钟。"},
+   {t:"15:00",end:"16:30",p:"pdg",ttl:"感恩大道购物",note:"每家店结账时说 tax free、出示护照，西班牙没有最低消费。Loewe 优先，也可以逛 Bimba y Lola、Tous、Camper、Massimo Dutti。Chocolate Amatller 在 41 号，巴特罗之家隔壁。从凯旋门坐 L1 到 Urquinaona 换 L4，或打车 10 分钟。"},
    {t:"16:45",p:"barcastore",ttl:"诺坎普球迷商店",note:"从 Passeig de Gràcia 坐 L3 直达 Les Corts。比赛日人多，买完先回酒店放东西。"},
    {t:"17:15",p:"acbcn",ttl:"回酒店放东西",note:"离球场走路约 15 分钟。"},
    {t:"17:30",p:"campnou",ttl:"入场",note:"提前 1 小时，安检和找座位都要时间。"},
@@ -387,7 +396,7 @@ const DAYS = [
  {d:"2026-10-12",city:"巴塞罗那",c:"#1A977D",stay:"acbcn",theme:"西班牙国庆节，购物日。大商场开门，街边品牌店不一定",
   alert:"今天是全国假日，街边品牌店多半不开，Loewe 这类旗舰店开不开出发前打电话问。能确定开门的是 El Corte Inglés 和大商场。",
   items:[
-   {t:"10:00",p:"eci",ttl:"El Corte Inglés 加泰罗尼亚广场店",note:"大牌、美妆、伴手礼都有，退税一次办完。"},
+   {t:"10:00",p:"eci",ttl:"El Corte Inglés 加泰罗尼亚广场店",tag:"warn",note:"先去客服台凭护照办游客礼品卡再买：每笔返 10%，和退税叠加，5 天内有效，10.13 早上还能用。所有消费最后合成一张退税单，金额越高退的比例越高。"},
    {t:"13:00",ttl:"午饭"},
    {t:"14:30",p:"pdg",ttl:"感恩大道补买",tag:"tbd",note:"只在打电话确认开门后去。"},
    {slot:"备用",p:"glories",ttl:"Westfield Glòries 商场",note:"国庆节照常营业。"},
@@ -396,10 +405,10 @@ const DAYS = [
  {d:"2026-10-13",city:"巴塞罗那 → 旧金山",c:"#667691",theme:"最后一轮伴手礼，下午飞回旧金山",
   items:[
    {t:"09:30",p:"boqueria",ttl:"波盖利亚市场，最后买一轮吃的",note:"周日和节假日不开，今天才能去。"},
-   {t:"10:30",p:"eci",ttl:"El Corte Inglés 顶楼美食区",note:"就在加泰罗尼亚广场，走路几分钟。"},
+   {t:"10:30",p:"eci",ttl:"El Corte Inglés 顶楼美食区",note:"就在加泰罗尼亚广场，走路几分钟。刷 10.12 办的游客卡，把卡里的 10% 用掉，过期作废。"},
    {t:"11:30",p:"acbcn",ttl:"回酒店拿行李",note:"从加泰罗尼亚广场坐 L3 或打车约 20 分钟。"},
    {t:"12:15",ttl:"出发去机场"},
-   {t:"13:00",p:"bcnair",ttl:"到机场，先办退税，再托运",note:"法国的退税单去海关柜台人工盖章，要出示商品，所以巴黎买的东西别放进托运；西班牙的单在自助机扫。"},
+   {t:"13:00",p:"bcnair",ttl:"到机场，先办退税，再托运",note:"法国的单去海关柜台盖章（带商品和登机牌），盖完投进退税公司信箱或寄回。西班牙的单在 DIVA 自助机扫，红屏就去海关。退款选退回信用卡。"},
    {t:"16:05",p:"bcnair",ttl:"UA673 巴塞罗那 → 旧金山",tag:"booked",note:"飞行 12 小时 15 分钟。"},
    {t:"19:20",tz:PDT,p:"sfo",ttl:"抵达旧金山",note:"美国海关：火腿和任何肉制品都不能带，真空包装也不行。"}
   ]}
@@ -412,7 +421,7 @@ const BOOKED = [
  {d:"2026-10-04",t:"09:00",ttl:"卢浮宫讲解",sub:"9:00–12:00",p:"louvre"},
  {d:"2026-10-04",t:"12:45",ttl:"Breizh Café 午饭",sub:"两位",p:"breizh"},
  {d:"2026-10-04",t:"15:30",ttl:"奥赛博物馆免费日预约",sub:"约了 13:30 和 15:30 两个时段，用 15:30",p:"orsay",addr:"Esplanade Valéry Giscard d'Estaing, 75007 Paris"},
- {d:"2026-10-05",ttl:"情侣摄影",sub:"10.5 傍晚"},
+ {d:"2026-10-05",t:"17:00",ttl:"情侣摄影",sub:"17:00 集合"},
  {d:"2026-10-07",ttl:"Crowne Plaza Paris République",sub:"10.7 – 10.9，2 晚",p:"republique",addr:"10 Place de la République, 75011 Paris"},
  {d:"2026-10-07",t:"19:30",ttl:"Restaurant H 晚饭",sub:"最好改到 19:00",p:"restoh",addr:"13 Rue Jean Beausire, 75004 Paris"},
  {d:"2026-10-07",t:"22:30",ttl:"疯马秀",sub:"22:00 前到场",p:"crazy",addr:"12 Avenue George V, 75008 Paris"},
@@ -447,18 +456,14 @@ const TODO = [
   {t:"塞纳河游船放 10.4 晚还是 10.8 晚，然后订票",w:""},
   {t:"10.8 晚上：铁塔登顶、奥赛夜场还是游船",w:""},
   {t:"El Tros de la Rambla 如果订了 10.11 12:30，取消或改到别的日子",w:"和圣家堂冲突"},
-  {t:"情侣摄影的集合时间、地点和机位",w:"10.5 傍晚"}
- ]},
- {h:"发我截图或信息",items:[
-  {t:"DL3842 从圣何塞起飞的时间",w:"收据上没有时间，补上后倒计时从出发算起"},
-  {t:"卢浮宫讲解、疯马秀、球票、圣家堂的订单",w:"补集合点、地址和电话"}
+  {t:"情侣摄影的集合地点和机位",w:"10.5 17:00 集合"}
  ]},
  {h:"出发前",items:[
   {t:"UA673 选座",w:"两人都还没选，想坐一起早点选"},
   {t:"VY8009 值机，确认托运行李额度",w:""},
   {t:"检查申根签证和回美入境文件的有效期",w:"覆盖 10.3–10.13"},
   {t:"装好 Uber、Cabify 或 FreeNow",w:"10.11 提比达波下山、10.10 球赛散场都要叫车"},
-  {t:"银行卡开通境外交易，带一张备用卡",w:""}
+  {t:"银行卡开通境外交易，带一张备用卡",w:"购物主力用免境外交易费的信用卡"}
  ]}
 ];
 
@@ -466,7 +471,10 @@ const TIPS = [
  {h:"过关与交通",p:["欧盟出入境系统 EES 已经上线，第一次入境要录指纹和拍照，戴高乐过关比以前慢，落地后按 2 小时算。","巴黎第一个住处在地铁 1 号线 Palais-Royal 旁边，香榭丽舍、凯旋门一条线直达。第二个住处在 République，地铁 8、9、11 号线都有。","巴塞罗那酒店旁边是地铁 L3 Maria Cristina 站，L3 直达感恩大道、兰布拉大道和波盖利亚市场。诺坎普走路就到。"]},
  {h:"防扒手",p:["巴黎：铁塔周围、蒙马特、地铁 1 号线最多。巴塞罗那：兰布拉大道、地铁、海滩、球场附近更严重。包背在身前，手机不放桌上。"]},
  {h:"吃饭节奏",p:["巴黎周日不少餐厅休息，周日晚饭提前确认。西班牙午饭 14 点、晚饭 21 点左右，20 点前很多餐厅还没开。","法国账单已含服务费，满意可以留几欧零钱。"]},
- {h:"购物和退税",p:["法国同一家店同一天满 100.01€ 可退税；西班牙没有起点金额，结账时说 tax free，出示护照。","你们最后从巴塞罗那离开欧盟，所以法国和西班牙的退税都在巴塞罗那机场办。法国的单要去海关柜台人工盖章，还要出示商品，巴黎买的东西别放进托运；西班牙的单在自助机扫。10.13 已经留了时间。","巴塞罗那旅游区周日和节假日开门的许可只在 5.15–9.15。10.11 周日、10.12 国庆节，街边品牌店多半不开，大商场和 El Corte Inglés 开门。"]},
+ {h:"退税：买的时候",p:["带护照原件，结账前说要退税。刷卡选欧元结算，不要选美元，用免境外交易费的卡。","在巴黎买一定跟店员说「我们从西班牙离开欧盟」，要纸质退税单和回邮信封。巴塞罗那机场的自助机只认西班牙的单，法国的单要海关人工盖章，没有纸质单盖不了。","法国：同一家店满 100.01 欧才能退，扣完手续费大约退 10–15%，老佛爷是 12%。按同一天同一家店凑够最稳。西班牙：没有门槛，El Corte Inglés 最高 15.7%。"]},
+ {h:"退税：哪些店能退",p:["能不能退先看店家办不办，办退税对商家是自愿的。找门口或收银台的 Tax Free / Détaxe 标志，没有就结账前问一句 “Vous faites la détaxe ?”。付完款再补开，有的店会拒绝。","奢侈品店：都能退，最值得退。大的药妆店（Pharmacie Monge、City Pharma）：能退，同一家凑够 100.01 欧。玛黑区：品牌店和连锁店大多能退，独立小店、古着店很多不办。","超市零食、路边小商品店：基本不能退，普通超市和小店几乎不办，在法国也很难满 100 欧。例外是 El Corte Inglés，顶楼美食区的伴手礼结账时问能不能并进退税单。","纪念品店：巴黎的一般不办。西班牙没有门槛，但小店多半不参加；圣家堂、巴特罗之家的官方商店更可能办，结账时问。","商品要原封不动带出欧盟，路上吃掉用掉的不能退。烟草、文物艺术品不能退。","退税实际只拿回 10–15%，小额的手续费一扣所剩无几，别为了凑 100 欧多买东西。"]},
+ {h:"退税：怎么退得最多",p:["集中在一家店买：药妆一家店一次买够；老佛爷、El Corte Inglés 里不同品牌当天能合成一张单，金额越高退的比例通常越高。","同一家店用同一个人的护照开单，别两个人分开开，不然每张都可能不够 100 欧。","El Corte Inglés 先去客服台凭护照办游客礼品卡，每笔消费返 10% 到卡里，可以和退税叠加。只能在 El Corte Inglés 用、不能换现金，第一笔消费起 5 天内有效。","Loewe 这类西班牙品牌在巴塞罗那买。退款选退回信用卡，机场现金柜台还要再扣 3–5%。"]},
+ {h:"退税：10.13 在巴塞罗那机场",p:["巴黎飞巴塞罗那还在欧盟里，所以法国和西班牙的单都在巴塞罗那机场办，托运行李之前办。","法国的单：去海关柜台出示单子、商品和登机牌，盖章后投进退税公司信箱或用回邮信封寄回。","西班牙的单：DIVA 自助机扫码，绿屏就完成；红屏去海关柜台。被拒后不能去别的国家补办，当场处理。","商品不要拆开用，放随身行李。海关每天 05:00–23:00 开放。","巴塞罗那旅游区周日和节假日开门的许可只在 5.15–9.15。10.11 周日、10.12 国庆节，街边品牌店多半不开，大商场和 El Corte Inglés 开门。"]},
  {h:"带回美国",p:["西班牙火腿和任何肉制品都不能带进美国，真空包装的也不行。橄榄油、巧克力、牛轧糖可以带，液体放托运。"]},
  {h:"天气和穿着",p:["十月巴黎大约 10–18°C，常下小雨，带防风外套和折叠伞。巴塞罗那暖一些，白天可以短袖。","Le Taillevent 着装偏正式。凯旋门、蒙马特圣心堂都要爬坡或爬楼，穿好走的鞋。提比达波山顶晚上风大，带件外套。"]},
  {h:"电源和电话",p:["法国和西班牙都是 230V，两圆孔插头。","紧急电话 112，法国西班牙通用。"]}
@@ -666,20 +674,30 @@ function renderDays(){
       const ttl = it.p ? placeLink(it.p, it.ttl) : esc(it.ttl);
       return `<li data-end="${it.t?+at(day.d,it.end||it.t,it.tz)+3600e3:""}">${tm}<div class="it"><div class="ttl">${ttl}${tag}</div>${it.note?`<div class="note">${esc(it.note)}</div>`:""}</div></li>`;
     }).join("");
-    return `<article class="day" id="d${day.d}" style="--c:${day.c}">
-      <header><h3><span class="d">${md}</span>${wk}<span class="city">${esc(day.city)}</span>${day.d===today?`<span class="today">今天</span>`:""}</h3>
-        <p class="theme">${esc(day.theme)}</p>${day.stay?`<p class="theme">今晚住：${placeLink(day.stay)}</p>`:""}
+    return `<details class="day" id="d${day.d}" style="--c:${day.c}"${day.d===today?" open":""}>
+      <summary><h3><span class="d">${md}</span>${wk}<span class="city">${esc(day.city)}</span>${day.d===today?`<span class="today">今天</span>`:""}${day.alert?`<span class="tag warn">有提醒</span>`:""}</h3>
+        <p class="theme">${esc(day.theme)}</p></summary>
+      <div class="daybody">${day.stay?`<p class="theme">今晚住：${placeLink(day.stay)}</p>`:""}
         ${day.alert?`<p class="alert"><b>注意</b>　${esc(day.alert)}</p>`:""}
         <div class="tools"><button class="btn" type="button" aria-expanded="false" data-map="${i}">展开当日路线图</button>
         ${stops.length>1?`<a class="btn primary" href="${navAll(stops)}" target="_blank" rel="noopener">全天多点导航（${Math.min(stops.length,9)} 站）</a>`:""}</div>
-      </header>
-      <div class="daymap" id="m${i}" hidden><svg role="img" aria-label="${md} 路线图"></svg></div>
-      <ol class="tl">${rows}</ol></article>`;
+        <div class="daymap" id="m${i}" hidden><svg role="img" aria-label="${md} 路线图"></svg></div>
+        <ol class="tl">${rows}</ol></div></details>`;
   }).join("");
   document.querySelectorAll("[data-map]").forEach(btn => btn.addEventListener("click", () => toggleMap(btn)));
   const ti = DAYS.findIndex(d => d.d === today);
   if (ti >= 0) toggleMap(document.querySelector(`[data-map="${ti}"]`));
+  const all = document.getElementById("allDays"), dets = () => [...document.querySelectorAll("details.day")];
+  const sync = () => { all.textContent = dets().every(d => d.open) ? "全部收起" : "全部展开"; };
+  all.addEventListener("click", () => { const open = !dets().every(d => d.open); dets().forEach(d => d.open = open); sync(); });
+  dets().forEach(d => d.addEventListener("toggle", sync)); sync();
 }
+function openDayFromHash(hash){
+  const el = hash && hash.startsWith("#d20") ? document.getElementById(hash.slice(1)) : null;
+  if (el && el.tagName === "DETAILS"){ el.open = true; requestAnimationFrame(() => el.scrollIntoView({block:"start"})); }
+}
+document.addEventListener("click", e => { const a = e.target.closest('a[href^="#d20"]'); if (a) openDayFromHash(a.getAttribute("href")); });
+addEventListener("hashchange", () => openDayFromHash(location.hash));
 function toggleMap(btn){
   const i = +btn.dataset.map, box = document.getElementById("m"+i), open = box.hidden;
   if (open && !box.dataset.done){ drawDayMap(box.querySelector("svg"), DAYS[i], i); box.dataset.done = 1; }
@@ -698,7 +716,7 @@ function renderTips(){
   document.getElementById("tipList").innerHTML = TIPS.map(t=>`<article><h3>${esc(t.h)}</h3>${t.p.map(x=>`<p>${esc(x)}</p>`).join("")}</article>`).join("");
 }
 
-renderBooked(); renderDays(); renderTodo(); renderTips();
+renderBooked(); renderDays(); renderTodo(); renderTips(); openDayFromHash(location.hash);
 drawOverview("mapParis","lgParis","paris"); drawOverview("mapBcn","lgBcn","bcn");
 markPast(); setInterval(markPast, 60000);
 if (renderFocus()) setInterval(renderFocus, 1000);
