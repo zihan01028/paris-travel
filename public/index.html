@@ -94,9 +94,6 @@ figure.map figcaption{font-size:13px;color:var(--muted);padding:6px 4px 2px}
 .day .alert{margin:10px 0 0;font-size:14px;background:var(--warnbg);color:var(--ink);border-radius:8px;padding:8px 10px}
 .day .alert b{color:var(--warn)}
 .day .tools{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
-.daybody[hidden]{display:none}
-.day-toggle::before{content:"▸";display:inline-block;transition:transform .18s ease}
-.day-toggle[aria-expanded="true"]::before{transform:rotate(90deg)}
 .btn{appearance:none;font:500 14px var(--sans);color:var(--ink);background:transparent;border:1px solid var(--rule);border-radius:8px;padding:7px 12px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
 .btn:hover{border-color:var(--ink)}
 .btn.primary{background:var(--c);border-color:var(--c);color:#fff}
@@ -260,6 +257,17 @@ const P = {
   barceloneta:{n:"巴塞罗内塔海滩",q:"Platja de la Barceloneta, Barcelona",ll:[41.3784,2.1925]},
   boqueria:{n:"波盖利亚市场",q:"Mercat de la Boqueria, Barcelona",ll:[41.3817,2.1716]},
   eci:{n:"El Corte Inglés 加泰罗尼亚广场店",q:"El Corte Inglés Plaça de Catalunya, Barcelona",ll:[41.3874,2.1700]},
+  sips:{n:"Sips",q:"Sips Barcelona, Carrer de Muntaner 108",ll:[41.3888,2.1573]},
+  catalunya:{n:"加泰罗尼亚广场",q:"Plaça de Catalunya, Barcelona",ll:[41.3870,2.1700]},
+  nomad:{n:"Nomad Coffee",q:"Nomad Coffee Lab & Shop, Passatge Sert 12, Barcelona",ll:[41.3889,2.1778]},
+  caganer:{n:"Caganer 小人店",q:"Caganer shop Barcelona Gothic Quarter"},
+  kiss:{n:"亲吻墙",q:"El món neix en cada besada, Plaça d'Isidre Nonell, Barcelona",ll:[41.3842,2.1757]},
+  joncake:{n:"Jon Cake",q:"Jon Cake Barcelona"},
+  triunfal:{n:"La Triunfal",q:"La Triunfal, Passeig de Sant Joan 4, Barcelona",ll:[41.3915,2.1808]},
+  barcastore:{n:"Barça Store 诺坎普",q:"Barça Store Spotify Camp Nou",ll:[41.3818,2.1235]},
+  tuscania:{n:"Tuscania Food & Wine",q:"Tuscania Food & Wine Barcelona"},
+  tibidabo:{n:"提比达波 圣心堂",q:"Temple Expiatori del Sagrat Cor, Tibidabo, Barcelona",ll:[41.4219,2.1187]},
+  glories:{n:"Westfield Glòries",q:"Westfield Glòries, Barcelona",ll:[41.4050,2.1920]},
   sfo:{n:"旧金山机场 SFO",q:"San Francisco International Airport",ll:[37.6213,-122.3790],far:1}
 };
 const PDT = {off:"-07:00",tzn:"PDT",tzid:"America/Los_Angeles"};
@@ -295,8 +303,8 @@ const DAYS = [
    {t:"12:30",p:"bedford",ttl:"Le Victoria 午饭",tag:"tbd",note:"在玛德莲附近，比去圣日耳曼的 Louise 顺路。"},
    {t:"14:00",p:"opera",ttl:"加尼叶歌剧院",tag:"book",note:"偶尔因彩排关闭部分区域，出门前看一眼官网日历。"},
    {t:"15:30",p:"lafayette",ttl:"老佛爷百货，屋顶露台看全景（免费）"},
-   {t:"16:00",p:"sthonore",ttl:"回住处休息、换衣服",note:"从老佛爷走回去约 15 分钟。"},
-   {t:"17:00",ttl:"情侣摄影集合",tag:"booked",note:"5:00 PM 集合。今天日落约 19:20。"}
+   {t:"17:00",p:"sthonore",ttl:"回住处休息、换衣服",note:"从老佛爷走回去约 15 分钟。"},
+   {slot:"傍晚",ttl:"情侣摄影",tag:"booked",note:"今天日落约 19:20。集合时间和地点、会不会去铁塔机位，跟摄影师确认。"}
   ]},
  {d:"2026-10-06",city:"巴黎",c:"#3F9556",stay:"sthonore",theme:"西岱岛和拉丁区。卢浮宫周二闭馆，今天在左岸",
   items:[
@@ -335,46 +343,55 @@ const DAYS = [
    {t:"19:00",p:"sacre",ttl:"圣心堂台阶看日落",note:"日落约 19:15。"},
    {slot:"晚上",ttl:"三选一：登埃菲尔铁塔 / 奥赛夜场 / 游船",tag:"tbd",note:"铁塔要预约；奥赛周四开到 21:45；游船如果 10.4 没坐就放今晚。"}
   ]},
- {d:"2026-10-09",city:"巴黎 → 巴塞罗那",c:"#7658C2",stay:"acbcn",theme:"上午玛黑早午餐，中午出发，傍晚到巴塞罗那",
+ {d:"2026-10-09",city:"巴黎 → 巴塞罗那",c:"#7658C2",stay:"acbcn",theme:"上午玛黑早午餐，中午出发，晚上 Sips 和 Paco Meralgo",
+  alert:"落地 17:15 到 Sips 19:00 只有不到 2 小时，还要取行李、去酒店。伏林晚点很常见，晚 30 分钟以上就直接带行李打车去 Sips，别回酒店了。",
   items:[
    {slot:"上午",ttl:"退房，玛黑早午餐，补买",note:"Vueling 行李尺寸和重量卡得很严，药妆很重，提前称重，不够就在网上加购托运。"},
    {t:"12:30",p:"republique",ttl:"从酒店出发去奥利机场",note:"地铁 11 号线到 Châtelet 换 14 号线直达奥利，约 50 分钟；行李多就打车。"},
    {t:"15:30",p:"orly",ttl:"VY8009 奥利 → 巴塞罗那",tag:"booked"},
    {t:"17:15",p:"bcnair",ttl:"抵达巴塞罗那机场",note:"酒店在城西 Les Corts，就在机场进城方向上，打车约 25 分钟。"},
-   {t:"18:30",p:"acbcn",ttl:"AC Hotel Victoria Suites 入住",tag:"booked"},
-   {t:"20:30",p:"paco",ttl:"Paco Meralgo 晚饭",tag:"booked",note:"从酒店打车约 15 分钟。"}
+   {t:"18:15",p:"acbcn",ttl:"AC Hotel Victoria Suites 放行李",tag:"booked",note:"放下就走，入住手续可以回来再办。"},
+   {t:"18:40",ttl:"打车去 Sips",note:"约 15 分钟。"},
+   {t:"19:00",p:"sips",ttl:"Sips 酒吧（fixed menu）",tag:"booked",note:"入座时说一声 20:20 要走，后面还有晚饭。"},
+   {t:"20:30",p:"paco",ttl:"Paco Meralgo 晚饭",tag:"booked",note:"和 Sips 在同一条街上，沿 Muntaner 往上走约 8 分钟。"},
+   {t:"22:00",p:"batllo",ttl:"感恩大道夜景散步",note:"这时店都关了，看亮灯的巴特罗之家和米拉之家外立面。回酒店坐地铁 L3 或打车约 15 分钟。"}
   ]},
- {d:"2026-10-10",city:"巴塞罗那",c:"#BF4580",stay:"acbcn",theme:"主要购物日，晚上诺坎普看球",
-  alert:"今天是四天里最适合购物的一天：10.11 是周日，大部分店关门；10.12 是国庆节，只有大商场确定开门。",
+ {d:"2026-10-10",city:"巴塞罗那",c:"#BF4580",stay:"acbcn",theme:"上午哥特区和 Born 区，下午感恩大道购物，晚上诺坎普看球",
+  alert:"感恩大道的品牌店在 10.11（周日）和 10.12（国庆节）大概率不开：巴塞罗那旅游区周日和节假日开门的许可只在 5.15–9.15。想买的奢侈品和轻奢尽量今天下午买。",
   items:[
-   {t:"10:00",end:"13:00",p:"pdg",ttl:"感恩大道买奢侈品和轻奢",note:"Loewe 优先，也可以逛 Bimba y Lola、Tous、Camper、Massimo Dutti。酒店旁的 Maria Cristina 站坐地铁 L3 直达 Passeig de Gràcia。"},
-   {t:"12:30",p:"amatller",ttl:"Chocolate Amatller 买巧克力",note:"店在感恩大道 41 号，巴特罗之家隔壁，逛街时顺手买。"},
-   {t:"13:00",ttl:"附近午饭"},
-   {t:"13:45",p:"catedral",ttl:"哥特区：巴塞罗那主教座堂"},
-   {t:"14:15",p:"vicens",ttl:"Torrons Vicens 买牛轧糖"},
-   {t:"14:45",p:"alpargatera",ttl:"La Manual Alpargatera 草编鞋"},
-   {t:"15:30",p:"gispert",ttl:"Born 区 Casa Gispert 坚果"},
-   {t:"17:00",p:"acbcn",ttl:"回酒店放东西，休息"},
-   {t:"17:15",ttl:"步行去诺坎普",note:"从酒店走过去约 15 分钟，提前 1 小时到，安检和找座位都要时间。"},
-   {t:"18:30",p:"campnou",ttl:"巴萨 vs Getafe",tag:"booked",note:"西甲第 8 轮。比赛日前再看一眼开球时间有没有调整。"},
-   {t:"21:30",p:"hisop",ttl:"Restaurant Hisop",tag:"warn",note:"还是 20:30 的话一定要改：散场约 20:20，几万人一起出场，赶不上。改到 21:30 或 22:00。从球场走过去约 30 分钟。"}
+   {t:"09:30",p:"catalunya",ttl:"加泰罗尼亚广场",note:"酒店旁 Maria Cristina 坐地铁 L3 直达 Catalunya。"},
+   {t:"09:50",p:"nomad",ttl:"Nomad Coffee",note:"Passatge Sert 这家是咖啡实验室，周末早上人少一些。"},
+   {t:"10:45",p:"catedral",ttl:"巴塞罗那主教座堂"},
+   {t:"11:30",p:"caganer",ttl:"拉屎小人（Caganer）店"},
+   {t:"12:00",p:"kiss",ttl:"亲吻墙"},
+   {t:"12:30",p:"joncake",ttl:"Jon Cake 蛋糕",note:"午饭前别吃太多，买了带走也行。"},
+   {t:"13:30",p:"triunfal",ttl:"La Triunfal 午饭",tag:"book",note:"在凯旋门旁边，从 Born 区走过去约 10 分钟。人气高，最好订位。"},
+   {t:"15:00",end:"16:30",p:"pdg",ttl:"感恩大道购物",note:"Loewe 优先，也可以逛 Bimba y Lola、Tous、Camper、Massimo Dutti。Chocolate Amatller 在 41 号，巴特罗之家隔壁。从凯旋门坐 L1 到 Urquinaona 换 L4，或打车 10 分钟。"},
+   {t:"16:45",p:"barcastore",ttl:"诺坎普球迷商店",note:"从 Passeig de Gràcia 坐 L3 直达 Les Corts。比赛日人多，买完先回酒店放东西。"},
+   {t:"17:15",p:"acbcn",ttl:"回酒店放东西",note:"离球场走路约 15 分钟。"},
+   {t:"17:30",p:"campnou",ttl:"入场",note:"提前 1 小时，安检和找座位都要时间。"},
+   {t:"18:30",p:"campnou",ttl:"巴萨 vs Getafe",tag:"booked",note:"西甲第 8 轮，比赛日前再看一眼开球时间有没有调整。"},
+   {t:"20:30",ttl:"晚饭随便吃点",note:"散场人多，打车难，就在酒店和 Les Corts 一带吃。"}
   ]},
- {d:"2026-10-11",city:"巴塞罗那",c:"#8A6739",stay:"acbcn",theme:"高迪日：圣家堂、巴特罗之家、米拉之家。周日大部分商店不开",
+ {d:"2026-10-11",city:"巴塞罗那",c:"#8A6739",stay:"acbcn",theme:"圣家堂、巴特罗之家，傍晚上提比达波看日落和夜景",
+  alert:"El Tros de la Rambla 12:30 赶不上：圣家堂 11:15 按时段入场、不能提前进，看完差不多 12:45。午饭定 13:00 的 Tuscania。",
   items:[
-   {t:"11:15",p:"sagrada",ttl:"圣家堂",tag:"booked",note:"按时段入场，不能提前进，参观约 1.5 小时。酒店坐 L3 到 Diagonal 换 L5 到 Sagrada Família。"},
-   {t:"13:00",ttl:"午饭：La Triunfal 或 Tuscania",tag:"tbd",note:"选离圣家堂或感恩大道近的那家。"},
-   {t:"15:00",p:"batllo",ttl:"巴特罗之家",tag:"book"},
-   {t:"16:30",p:"pedrera",ttl:"米拉之家",tag:"book",note:"屋顶傍晚最好看。和巴特罗之家走路 5 分钟。"},
-   {slot:"晚上",ttl:"沿感恩大道散步，附近吃 tapas"}
+   {t:"11:15",p:"sagrada",ttl:"圣家堂",tag:"booked",note:"按时段入场，参观约 1.5 小时。酒店坐 L3 到 Diagonal 换 L5 到 Sagrada Família。"},
+   {t:"13:00",p:"tuscania",ttl:"Tuscania Food & Wine 午饭",tag:"book"},
+   {t:"15:00",p:"batllo",ttl:"巴特罗之家（进去参观）",tag:"book",note:"参观约 1 小时。"},
+   {t:"16:15",p:"pedrera",ttl:"米拉之家（外面看）",note:"走路 5 分钟，拍完外立面就走。周日感恩大道大部分店不开。"},
+   {t:"17:15",ttl:"打车上提比达波",note:"约 25 分钟直接开到山顶，比地铁转车再坐缆车省事。"},
+   {t:"18:00",p:"tibidabo",ttl:"提比达波：圣心堂和观景台",note:"日落约 19:05，天黑后就是夜景。"},
+   {t:"20:00",ttl:"打车下山，回酒店附近吃晚饭",note:"缆车只在游乐园开放时运行，天黑后不一定还有，下山按打车准备。山顶信号一般，提前在 Uber、Cabify 或 FreeNow 上叫车。"}
   ]},
- {d:"2026-10-12",city:"巴塞罗那",c:"#1A977D",stay:"acbcn",theme:"西班牙国庆节。奎尔公园、格拉西亚区、Born 区，傍晚去海边",
+ {d:"2026-10-12",city:"巴塞罗那",c:"#1A977D",stay:"acbcn",theme:"西班牙国庆节，购物日。大商场开门，街边品牌店不一定",
+  alert:"今天是全国假日，街边品牌店多半不开，Loewe 这类旗舰店开不开出发前打电话问。能确定开门的是 El Corte Inglés 和大商场。",
   items:[
-   {t:"09:30",p:"guell",ttl:"奎尔公园",tag:"book",note:"按预约时段入场，迟到可能进不去。早上人少光线好。"},
-   {t:"12:00",p:"sol",ttl:"步行到格拉西亚区午饭",note:"逛逛小广场和本地小店。"},
-   {t:"14:30",p:"smmar",ttl:"Born 区，海上圣母教堂"},
-   {t:"16:30",p:"barceloneta",ttl:"巴塞罗内塔海滩散步，看日落",note:"日落约 19:05。"},
-   {slot:"晚上",ttl:"海边海鲜饭",tag:"unbooked",note:"节假日人多，一定要提前订位。"},
-   {slot:"备用",p:"eci",ttl:"补买：El Corte Inglés 或 Glòries 商场",note:"大商场国庆节这天照常营业，感恩大道上的品牌店不一定开。"}
+   {t:"10:00",p:"eci",ttl:"El Corte Inglés 加泰罗尼亚广场店",note:"大牌、美妆、伴手礼都有，退税一次办完。"},
+   {t:"13:00",ttl:"午饭"},
+   {t:"14:30",p:"pdg",ttl:"感恩大道补买",tag:"tbd",note:"只在打电话确认开门后去。"},
+   {slot:"备用",p:"glories",ttl:"Westfield Glòries 商场",note:"国庆节照常营业。"},
+   {slot:"晚上",ttl:"收拾行李，退税单和商品放随身包"}
   ]},
  {d:"2026-10-13",city:"巴塞罗那 → 旧金山",c:"#667691",theme:"最后一轮伴手礼，下午飞回旧金山",
   items:[
@@ -395,16 +412,16 @@ const BOOKED = [
  {d:"2026-10-04",t:"09:00",ttl:"卢浮宫讲解",sub:"9:00–12:00",p:"louvre"},
  {d:"2026-10-04",t:"12:45",ttl:"Breizh Café 午饭",sub:"两位",p:"breizh"},
  {d:"2026-10-04",t:"15:30",ttl:"奥赛博物馆免费日预约",sub:"约了 13:30 和 15:30 两个时段，用 15:30",p:"orsay",addr:"Esplanade Valéry Giscard d'Estaing, 75007 Paris"},
- {d:"2026-10-05",t:"17:00",ttl:"情侣摄影",sub:"5:00 PM 集合"},
+ {d:"2026-10-05",ttl:"情侣摄影",sub:"10.5 傍晚"},
  {d:"2026-10-07",ttl:"Crowne Plaza Paris République",sub:"10.7 – 10.9，2 晚",p:"republique",addr:"10 Place de la République, 75011 Paris"},
  {d:"2026-10-07",t:"19:30",ttl:"Restaurant H 晚饭",sub:"最好改到 19:00",p:"restoh",addr:"13 Rue Jean Beausire, 75004 Paris"},
  {d:"2026-10-07",t:"22:30",ttl:"疯马秀",sub:"22:00 前到场",p:"crazy",addr:"12 Avenue George V, 75008 Paris"},
  {d:"2026-10-08",t:"12:30",ttl:"La Jacobine 午饭",sub:"两位",p:"jacobine",addr:"59-61 Rue Saint-André des Arts, 75006 Paris"},
  {d:"2026-10-09",t:"15:30",ttl:"伏林 VY8009",sub:"巴黎奥利 ORY 15:30 → 巴塞罗那 BCN 17:15",p:"orly"},
  {d:"2026-10-09",ttl:"AC Hotel Victoria Suites",sub:"10.9 – 10.13，4 晚",p:"acbcn",addr:"Carrer de Beltran i Rózpide 7-9, 08034 Barcelona"},
+ {d:"2026-10-09",t:"19:00",ttl:"Sips 酒吧",sub:"fixed menu，20:20 前要走",p:"sips",addr:"Carrer de Muntaner 108, Barcelona"},
  {d:"2026-10-09",t:"20:30",ttl:"Paco Meralgo 晚饭",sub:"航班延误就打电话推迟",p:"paco",addr:"Carrer de Muntaner 171, Barcelona"},
  {d:"2026-10-10",t:"18:30",ttl:"巴萨 vs Getafe",sub:"西甲第 8 轮",p:"campnou"},
- {d:"2026-10-10",ttl:"Restaurant Hisop",sub:"要改到 21:30 或 22:00",p:"hisop",addr:"Passatge de Marimon 9, Barcelona"},
  {d:"2026-10-11",t:"11:15",ttl:"圣家堂",sub:"按时段入场",p:"sagrada"},
  {d:"2026-10-13",t:"16:05",ttl:"美联航 UA673",sub:"巴塞罗那 BCN 16:05 → 旧金山 SFO 19:20（PDT），波音 787-9",p:"bcnair"}
 ];
@@ -412,9 +429,8 @@ const BOOKED = [
 /* ---------- todo (plain list, edited by hand) ---------- */
 const TODO = [
  {h:"尽快订",items:[
-  {u:1,t:"巴特罗之家 10.11 15:00、米拉之家 10.11 16:30",w:""},
-  {u:1,t:"奎尔公园时段票，10.12 9:30",w:""},
-  {u:1,t:"10.12 晚上海边海鲜饭餐厅",w:"国庆节人多"},
+  {u:1,t:"巴特罗之家 10.11 15:00 入内票",w:"米拉之家只看外面，不用买"},
+  {t:"La Triunfal 10.10 13:30、Tuscania 10.11 13:00 订位",w:""},
   {t:"凯旋门登顶票，10.3 18:15 左右",w:""},
   {t:"圣礼拜堂和圣母院时段，10.6 上午",w:""},
   {t:"橘园，10.5 10:00（10.4 免费日也行，同样要约）",w:""},
@@ -423,18 +439,25 @@ const TODO = [
   {t:"荣军院、罗丹美术馆，10.8 上午",w:""}
  ]},
  {h:"要改或要做决定",items:[
-  {u:1,t:"Restaurant Hisop 改到 21:30 或 22:00",w:"10.10，球赛散场约 20:20"},
+  {u:1,t:"Restaurant Hisop 如果订过，记得取消",w:"新计划 10.10 晚上随便吃"},
+  {u:1,t:"打电话问 Loewe 等感恩大道的店 10.12 开不开",w:"国庆节，旅游区节假日开门许可只到 9.15"},
   {u:1,t:"Restaurant H 改到 19:00，或入座时说明 21:30 离开",w:"10.7，后面接疯马秀"},
   {t:"Le Taillevent 年轻人优惠，约不上的话 10.6 晚饭换哪家",w:""},
   {t:"10.3 晚饭选一家",w:"候选：Les Cocottes Tour Eiffel、L'Atypic、JJ Beaumarchais、Boutary、Les Antiquaires"},
   {t:"塞纳河游船放 10.4 晚还是 10.8 晚，然后订票",w:""},
   {t:"10.8 晚上：铁塔登顶、奥赛夜场还是游船",w:""},
-  {t:"10.11 午饭：La Triunfal 还是 Tuscania",w:""}
+  {t:"El Tros de la Rambla 如果订了 10.11 12:30，取消或改到别的日子",w:"和圣家堂冲突"},
+  {t:"情侣摄影的集合时间、地点和机位",w:"10.5 傍晚"}
+ ]},
+ {h:"发我截图或信息",items:[
+  {t:"DL3842 从圣何塞起飞的时间",w:"收据上没有时间，补上后倒计时从出发算起"},
+  {t:"卢浮宫讲解、疯马秀、球票、圣家堂的订单",w:"补集合点、地址和电话"}
  ]},
  {h:"出发前",items:[
   {t:"UA673 选座",w:"两人都还没选，想坐一起早点选"},
   {t:"VY8009 值机，确认托运行李额度",w:""},
   {t:"检查申根签证和回美入境文件的有效期",w:"覆盖 10.3–10.13"},
+  {t:"装好 Uber、Cabify 或 FreeNow",w:"10.11 提比达波下山、10.10 球赛散场都要叫车"},
   {t:"银行卡开通境外交易，带一张备用卡",w:""}
  ]}
 ];
@@ -443,9 +466,9 @@ const TIPS = [
  {h:"过关与交通",p:["欧盟出入境系统 EES 已经上线，第一次入境要录指纹和拍照，戴高乐过关比以前慢，落地后按 2 小时算。","巴黎第一个住处在地铁 1 号线 Palais-Royal 旁边，香榭丽舍、凯旋门一条线直达。第二个住处在 République，地铁 8、9、11 号线都有。","巴塞罗那酒店旁边是地铁 L3 Maria Cristina 站，L3 直达感恩大道、兰布拉大道和波盖利亚市场。诺坎普走路就到。"]},
  {h:"防扒手",p:["巴黎：铁塔周围、蒙马特、地铁 1 号线最多。巴塞罗那：兰布拉大道、地铁、海滩、球场附近更严重。包背在身前，手机不放桌上。"]},
  {h:"吃饭节奏",p:["巴黎周日不少餐厅休息，周日晚饭提前确认。西班牙午饭 14 点、晚饭 21 点左右，20 点前很多餐厅还没开。","法国账单已含服务费，满意可以留几欧零钱。"]},
- {h:"购物和退税",p:["法国同一家店同一天满 100.01€ 可退税；西班牙没有起点金额，结账时说 tax free，出示护照。","你们最后从巴塞罗那离开欧盟，所以法国和西班牙的退税都在巴塞罗那机场办。法国的单要去海关柜台人工盖章，还要出示商品，巴黎买的东西别放进托运；西班牙的单在自助机扫。10.13 已经留了时间。","10.11 周日大部分店关门；10.12 国庆节只有大商场确定开门。"]},
+ {h:"购物和退税",p:["法国同一家店同一天满 100.01€ 可退税；西班牙没有起点金额，结账时说 tax free，出示护照。","你们最后从巴塞罗那离开欧盟，所以法国和西班牙的退税都在巴塞罗那机场办。法国的单要去海关柜台人工盖章，还要出示商品，巴黎买的东西别放进托运；西班牙的单在自助机扫。10.13 已经留了时间。","巴塞罗那旅游区周日和节假日开门的许可只在 5.15–9.15。10.11 周日、10.12 国庆节，街边品牌店多半不开，大商场和 El Corte Inglés 开门。"]},
  {h:"带回美国",p:["西班牙火腿和任何肉制品都不能带进美国，真空包装的也不行。橄榄油、巧克力、牛轧糖可以带，液体放托运。"]},
- {h:"天气和穿着",p:["十月巴黎大约 10–18°C，常下小雨，带防风外套和折叠伞。巴塞罗那暖一些，白天可以短袖。","Le Taillevent 着装偏正式。凯旋门、圣心堂、奎尔公园都要爬坡或爬楼，穿好走的鞋。"]},
+ {h:"天气和穿着",p:["十月巴黎大约 10–18°C，常下小雨，带防风外套和折叠伞。巴塞罗那暖一些，白天可以短袖。","Le Taillevent 着装偏正式。凯旋门、蒙马特圣心堂都要爬坡或爬楼，穿好走的鞋。提比达波山顶晚上风大，带件外套。"]},
  {h:"电源和电话",p:["法国和西班牙都是 230V，两圆孔插头。","紧急电话 112，法国西班牙通用。"]}
 ];
 
@@ -528,9 +551,9 @@ const BOX = {
   paris:{lat:[48.836,48.893],lon:[2.272,2.386],
     water:[[48.8400,2.2720],[48.8480,2.2820],[48.8555,2.2885],[48.8600,2.2945],[48.8638,2.3010],[48.8650,2.3100],[48.8640,2.3200],[48.8610,2.3300],[48.8578,2.3400],[48.8540,2.3500],[48.8500,2.3600],[48.8445,2.3670],[48.8385,2.3765],[48.8360,2.3860]],
     label:[48.8905,2.2760,"Paris"], note:[48.8400,2.3500,"塞纳河"]},
-  bcn:{lat:[41.360,41.422],lon:[2.113,2.203],
+  bcn:{lat:[41.360,41.430],lon:[2.108,2.203],
     sea:[[41.3600,2.1740],[41.3690,2.1770],[41.3735,2.1825],[41.3730,2.1870],[41.3775,2.1905],[41.3845,2.1970],[41.3900,2.2030]],
-    label:[41.4200,2.1160,"Barcelona"], note:[41.3660,2.1950,"地中海"]}
+    label:[41.4290,2.1400,"Barcelona"], note:[41.3660,2.1950,"地中海"]}
 };
 function backdrop(key, pr){
   const b = BOX[key]; let s = DEFS;
@@ -567,7 +590,7 @@ function drawOverview(svgId, lgId, key){
   svg.setAttribute("viewBox",`0 0 ${pr.W} ${pr.H.toFixed(0)}`);
   let s = backdrop(key, pr), lg = "";
   DAYS.forEach((day,i) => {
-    const keys = dayStops(day).filter(k => !P[k].far && !P[k].home && inBox(b,P[k].ll));
+    const keys = dayStops(day).filter(k => P[k].ll && !P[k].far && !P[k].home && inBox(b,P[k].ll));
     if (!keys.length) return;
     const pts = keys.map(k => pr.f(P[k].ll));
     s += `<a href="#d${day.d}"><path d="${wobble(pts,i*97+3)}" fill="none" stroke="${day.c}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity=".9" filter="url(#rough)"/></a>`;
@@ -587,8 +610,8 @@ function drawOverview(svgId, lgId, key){
 
 function drawDayMap(svg, day, idx){
   const isParis = k => P[k].ll[0] > 45;
-  const ref = day.stay || dayStops(day).find(k => !P[k].far);
-  const keys = dayStops(day).filter(k => !P[k].far && isParis(k) === isParis(ref));
+  const ref = day.stay || dayStops(day).find(k => P[k].ll && !P[k].far);
+  const keys = dayStops(day).filter(k => P[k].ll && !P[k].far && isParis(k) === isParis(ref));
   const extra = day.stay && !keys.includes(day.stay) ? [day.stay] : [];
   if (!keys.length){ svg.outerHTML = `<p class="sub" style="margin:8px 4px">今天主要在路上，没有市内路线。</p>`; return; }
   const all = keys.concat(extra), lats = all.map(k=>P[k].ll[0]), lons = all.map(k=>P[k].ll[1]);
@@ -647,31 +670,18 @@ function renderDays(){
       <header><h3><span class="d">${md}</span>${wk}<span class="city">${esc(day.city)}</span>${day.d===today?`<span class="today">今天</span>`:""}</h3>
         <p class="theme">${esc(day.theme)}</p>${day.stay?`<p class="theme">今晚住：${placeLink(day.stay)}</p>`:""}
         ${day.alert?`<p class="alert"><b>注意</b>　${esc(day.alert)}</p>`:""}
-        <div class="tools"><button class="btn day-toggle" type="button" aria-expanded="false" data-day="${i}">展开行程</button>
-        <button class="btn" type="button" aria-expanded="false" data-map="${i}">展开当日路线图</button>
+        <div class="tools"><button class="btn" type="button" aria-expanded="false" data-map="${i}">展开当日路线图</button>
         ${stops.length>1?`<a class="btn primary" href="${navAll(stops)}" target="_blank" rel="noopener">全天多点导航（${Math.min(stops.length,9)} 站）</a>`:""}</div>
       </header>
-      <div class="daybody" id="b${i}" hidden>
-        <div class="daymap" id="m${i}" hidden><svg role="img" aria-label="${md} 路线图"></svg></div>
-        <ol class="tl">${rows}</ol>
-      </div></article>`;
+      <div class="daymap" id="m${i}" hidden><svg role="img" aria-label="${md} 路线图"></svg></div>
+      <ol class="tl">${rows}</ol></article>`;
   }).join("");
-  document.querySelectorAll("[data-day]").forEach(btn => btn.addEventListener("click", () => toggleDay(btn)));
   document.querySelectorAll("[data-map]").forEach(btn => btn.addEventListener("click", () => toggleMap(btn)));
-}
-function toggleDay(btn, forceOpen=false){
-  const i = +btn.dataset.day, body = document.getElementById("b"+i);
-  const open = forceOpen ? true : body.hidden;
-  body.hidden = !open;
-  btn.setAttribute("aria-expanded", String(open));
-  btn.textContent = open ? "收起行程" : "展开行程";
+  const ti = DAYS.findIndex(d => d.d === today);
+  if (ti >= 0) toggleMap(document.querySelector(`[data-map="${ti}"]`));
 }
 function toggleMap(btn){
   const i = +btn.dataset.map, box = document.getElementById("m"+i), open = box.hidden;
-  if (open){
-    const dayBtn = document.querySelector(`[data-day="${i}"]`);
-    if (dayBtn) toggleDay(dayBtn, true);
-  }
   if (open && !box.dataset.done){ drawDayMap(box.querySelector("svg"), DAYS[i], i); box.dataset.done = 1; }
   box.hidden = !open; btn.setAttribute("aria-expanded", String(open));
   btn.textContent = open ? "收起路线图" : "展开当日路线图";
