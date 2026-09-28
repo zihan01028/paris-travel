@@ -274,71 +274,86 @@ const P = {
   tuscania:{n:"Tuscania Food & Wine",q:"Tuscania Food & Wine Barcelona"},
   tibidabo:{n:"提比达波 圣心堂",q:"Temple Expiatori del Sagrat Cor, Tibidabo, Barcelona",ll:[41.4219,2.1187]},
   glories:{n:"Westfield Glòries",q:"Westfield Glòries, Barcelona",ll:[41.4050,2.1920]},
+  stohrer:{n:"Stohrer",q:"Stohrer, 51 Rue Montorgueil, Paris",ll:[48.8651,2.3471]},
+  luxembourg:{n:"卢森堡公园",q:"Jardin du Luxembourg, Paris",ll:[48.8462,2.3372]},
+  citypharma:{n:"City Pharma",q:"City Pharma, 26 Rue du Four, Paris",ll:[48.8531,2.3330]},
+  goyard:{n:"Goyard 圣奥诺雷店",q:"Goyard, 233 Rue Saint-Honoré, Paris",ll:[48.8661,2.3286]},
+  meurice:{n:"Cédric Grolet 莫里斯甜品店",q:"La Pâtisserie du Meurice par Cédric Grolet, 6 Rue de Castiglione, Paris",ll:[48.8649,2.3290]},
+  vendome:{n:"旺多姆广场",q:"Place Vendôme, Paris",ll:[48.8675,2.3294]},
   sfo:{n:"旧金山机场 SFO",q:"San Francisco International Airport",ll:[37.6213,-122.3790],far:1}
 };
 const PDT = {off:"-07:00",tzn:"PDT",tzid:"America/Los_Angeles"};
 
 /* ---------- days (stay = where you sleep that night) ---------- */
 const DAYS = [
- {d:"2026-10-03",city:"巴黎",c:"#D24B4B",stay:"sthonore",theme:"落地，香榭丽舍和凯旋门看日落，早点回去倒时差",
+ {d:"2026-10-03",city:"巴黎",c:"#D24B4B",stay:"sthonore",theme:"落地，香榭丽舍和凯旋门看日落，走到 Trocadéro 看铁塔亮灯，铁塔旁吃晚饭",
   items:[
    {t:"13:50",p:"cdg",ttl:"DL290 抵达戴高乐机场",tag:"booked",note:"新的欧盟出入境系统 EES 首次入境要录指纹和照片，过关可能比以前慢。进城 RER B 或出租车，留足 2 小时。"},
    {t:"16:00",p:"sthonore",ttl:"住处放行李",tag:"booked",note:"住处在卢浮宫和皇家宫殿旁边，附近随便吃点垫一下。"},
    {t:"16:30",p:"champs",ttl:"香榭丽舍大道，浅浅逛街",note:"地铁 1 号线 Palais-Royal 上车，直达 George V。"},
-   {t:"18:15",p:"arc",ttl:"凯旋门登顶",tag:"book",note:"约 280 级台阶，没有游客电梯。今天日落约 19:25，登顶能把铁塔拍进画面。"},
-   {t:"19:45",p:"cocottes",ttl:"晚饭",tag:"tbd",note:"候选里 Les Cocottes Tour Eiffel 离铁塔最近，第一晚别跑远。定了哪家告诉我。"},
-   {t:"21:00",p:"troca",ttl:"Trocadéro 看铁塔整点闪灯（可选）",note:"天黑后每个整点闪 5 分钟。累了就直接回去。"}
+   {t:"18:15",p:"arc",ttl:"凯旋门登顶看日落",tag:"book",note:"约 280 级台阶，没有游客电梯。今天日落约 19:25，登顶能把铁塔拍进画面，看完日落再下来。"},
+   {t:"19:40",p:"troca",ttl:"Trocadéro 看铁塔，20:00 整点闪灯",note:"从凯旋门沿 Kléber 大道往下走约 15 分钟。天黑后每个整点闪 5 分钟。不专门拍照，第一晚看一眼亮灯的铁塔就好。"},
+   {t:"20:30",p:"cocottes",ttl:"晚饭",tag:"tbd",note:"候选里 Les Cocottes Tour Eiffel 最顺路，从 Trocadéro 过耶拿桥走约 15 分钟，订 20:30。吃完打车回住处约 15 分钟，早点睡倒时差。"}
   ]},
- {d:"2026-10-04",city:"巴黎",c:"#DD8A2A",stay:"sthonore",theme:"卢浮宫讲解，奥赛免费日。十月第一个周日，奥赛和橘园免费，人会很多",
-  alert:"8:30 在 Café Marly 坐下、9:00 就要到讲解集合点，只剩半小时还要算安检排队。早饭改 8:00 到，8:40 起身。好在从住处走过去只要 5 分钟。",
+ {d:"2026-10-04",city:"巴黎",c:"#DD8A2A",stay:"sthonore",theme:"卢浮宫讲解，奥赛免费日，晚上蒙马特日落或游船。十月第一个周日，奥赛和橘园免费，人会很多",
+  alert:"晚上两个方案看天气定：晴天去蒙马特看日落，阴天或下雨坐游船（下雨在船舱里也能看）。没选的那个放到 10.8。",
   items:[
-   {t:"08:00",p:"marly",ttl:"Le Café Marly 早饭",tag:"warn",note:"最晚 8:40 离开去集合点。"},
+   {t:"08:00",p:"stohrer",ttl:"早饭：Stohrer 买可颂和 flan，边走边吃",tag:"tbd",note:"待办里说 flan 要早去，今天顺路。离住处走路约 10 分钟，到卢浮宫约 15 分钟，8:40 前出发。周日营业时间出门前确认，来不及就在住处附近随便买。"},
    {t:"09:00",end:"12:00",p:"louvre",ttl:"卢浮宫讲解",tag:"booked",note:"讲解结束后可以自由再逛一会儿，12:30 前出来。"},
-   {t:"12:45",p:"breizh",ttl:"Breizh Café 午饭",tag:"booked"},
+   {t:"12:45",p:"breizh",ttl:"午饭：Breizh Café 或附近随便吃",tag:"tbd",note:"Breizh 已订 12:45。不去的话记得提前取消。"},
    {t:"13:45",p:"palaisroyal",ttl:"皇家宫殿花园 → 薇薇安拱廊街 → 艺术桥过河",note:"慢慢走到奥赛约 20 分钟。"},
+   {slot:"可选",ttl:"橘园美术馆（代替皇家宫殿）",tag:"book",note:"橘园周二闭馆，10.6 去不了，想看莫奈《睡莲》只能今天。今天免费但要预约。看完穿过杜乐丽、走步行桥到奥赛约 10 分钟。一天三个馆会累，不想去就跳过。"},
    {t:"15:30",p:"orsay",ttl:"奥赛博物馆（免费日）",tag:"booked",note:"用 15:30 这个时段，13:30 那个赶不上。约 17:30 开始清场，进门直奔五楼印象派。"},
-   {t:"18:30",ttl:"圣日耳曼一带晚饭",tag:"tbd",note:"周日很多餐厅休息，出门前确认营业。"},
-   {t:"21:00",p:"pontneuf",ttl:"塞纳河游船",tag:"tbd",note:"饭后步行几分钟到码头，坐完走回住处 15 分钟。也可以放到 10.8 晚上，定了告诉我。"}
+   {slot:"晚上 A",ttl:"晴天：蒙马特看日落，在蒙马特吃晚饭",tag:"tbd",note:"17:45 从奥赛门口的 Solférino 坐地铁 12 号线直达 Abbesses，约 20 分钟。爬上圣心堂台阶，日落约 19:20。周日人多，看好包。回住处坐 12 号线到 Concorde 换 1 号线，或打车约 20 分钟。"},
+   {slot:"晚上 B",ttl:"阴天：圣日耳曼晚饭 + 塞纳河游船",tag:"tbd",note:"晚饭推荐 Boutary（25 Rue Mazarine），吃完走 5 分钟到新桥下的 Vedettes du Pont Neuf 码头坐夜船，坐完走回住处约 15 分钟。周日很多餐厅休息，订之前确认营业。"}
   ]},
- {d:"2026-10-05",city:"巴黎",c:"#C49B1E",stay:"sthonore",theme:"杜乐丽到歌剧院一条线，下午回去换装，17:00 情侣摄影",
+ {d:"2026-10-05",city:"巴黎",c:"#C49B1E",stay:"sthonore",theme:"西岱岛和拉丁区，一路往西走到圣日耳曼，下午回去换装，17:00 情侣摄影",
+  alert:"17:00 集合拍照，15:30 前要回到住处换衣服化妆。上午节奏比较紧，时间不够就先砍先贤祠。",
   items:[
-   {t:"09:30",p:"tuileries",ttl:"杜乐丽花园",note:"出门就是。"},
-   {t:"10:00",p:"orangerie",ttl:"橘园美术馆，莫奈《睡莲》",tag:"book",note:"橘园周二闭馆，今天去正好。10.4 如果已经顺路去过就跳过。"},
-   {t:"11:15",p:"concorde",ttl:"协和广场"},
-   {t:"11:30",p:"marine",ttl:"海军府",tag:"book"},
-   {t:"12:30",p:"bedford",ttl:"Le Victoria 午饭",tag:"tbd",note:"在玛德莲附近，比去圣日耳曼的 Louise 顺路。"},
-   {t:"13:45",p:"opera",ttl:"加尼叶歌剧院",tag:"book",note:"偶尔因彩排关闭部分区域，出门前看一眼官网日历。"},
-   {t:"14:45",p:"lafayette",ttl:"老佛爷百货，屋顶露台看全景（免费）",note:"今天别买太多，拍照前还要回去换衣服。在这里买的话不同品牌当天能合成一张退税单（退 12%），用一个人的护照，要纸质单。"},
-   {t:"15:45",p:"sthonore",ttl:"回住处休息、换衣服、化妆",note:"从老佛爷走回去约 15 分钟。按集合地点留足路上的时间。"},
+   {t:"08:15",p:"isabelle",ttl:"La Maison d'Isabelle 可颂"},
+   {t:"09:00",p:"chapelle",ttl:"圣礼拜堂",tag:"book",note:"开门就进，晴天上午彩窗最好看。从可颂店走过去约 10 分钟。"},
+   {t:"10:00",p:"notredame",ttl:"巴黎圣母院",tag:"book",note:"免费，但预约时段能少排很久。钟楼要爬 400 多级，已经登过凯旋门可以跳过。"},
+   {t:"11:00",p:"shakespeare",ttl:"莎士比亚书店",note:"就在圣母院对岸。"},
+   {t:"11:45",p:"pantheon",ttl:"先贤祠",note:"往南走约 10 分钟，上坡。"},
+   {t:"12:45",p:"luxembourg",ttl:"卢森堡公园",note:"从先贤祠往西穿过公园，出来就是圣日耳曼，顺路逛。"},
+   {t:"13:15",ttl:"圣日耳曼午饭",tag:"tbd",note:"候选 Louise de Saint Germain。周一不少巴黎餐厅休息，订之前确认。"},
+   {t:"14:30",p:"citypharma",ttl:"City Pharma 买药妆",note:"同一家店同一天满 100.01€ 才能退税，一次在一家买够，用一个人的护照开单。跟店员说从西班牙离境，要纸质退税单和回邮信封。人多，留足排队时间。"},
+   {t:"15:15",p:"sthonore",ttl:"回住处放药妆、休息、换衣服化妆",note:"从 City Pharma 走艺术桥回去约 20 分钟。按集合地点留足路上时间。"},
    {t:"17:00",ttl:"情侣摄影集合",tag:"booked",note:"今天日落约 19:20。集合地点、会不会去铁塔机位，跟摄影师确认。"}
   ]},
- {d:"2026-10-06",city:"巴黎",c:"#3F9556",stay:"sthonore",theme:"西岱岛和拉丁区。卢浮宫周二闭馆，今天在左岸",
+ {d:"2026-10-06",city:"巴黎",c:"#3F9556",stay:"sthonore",theme:"从北往南一条线：歌剧院、老佛爷、玛德莲午饭、海军府，杜乐丽吃 Cédric Grolet，下午回去休息，晚上 Taillevent",
+  alert:"橘园周二闭馆。Cédric Grolet 要提前 2–3 天在官网下单，选 15:00–16:00 取货；甜品要冷藏，取了马上吃。老佛爷买的东西要拎到下午，大件留到别的时候买。",
   items:[
-   {t:"08:30",p:"isabelle",ttl:"La Maison d'Isabelle 可颂"},
-   {t:"09:00",p:"chapelle",ttl:"圣礼拜堂",tag:"book",note:"晴天上午彩窗最好看。"},
-   {t:"10:15",p:"notredame",ttl:"巴黎圣母院",tag:"book",note:"免费，但预约时段能少排很久。钟楼要爬 400 多级，已经登过凯旋门可以跳过。"},
-   {t:"11:30",p:"shakespeare",ttl:"莎士比亚书店"},
-   {t:"12:30",ttl:"拉丁区午饭",tag:"tbd",note:"La Jacobine 订在 10.8，今天换一家 bistro，不用订。"},
-   {t:"14:00",p:"pantheon",ttl:"先贤祠"},
-   {t:"15:15",p:"monge",ttl:"买药妆",note:"同一家店同一天满 100.01€ 才能退税，一次在一家买够，用一个人的护照开单。跟店员说从西班牙离境，要纸质退税单和回邮信封。City Pharma 更便宜但人多。"},
-   {t:"17:30",p:"sthonore",ttl:"回住处换正装"},
+   {t:"09:50",p:"goyard",ttl:"Goyard（可选）",note:"出门沿圣奥诺雷街走约 5 分钟，正好在去旺多姆的路上。待办说经常排队，开门前后到最好。开门时间出发前确认。"},
+   {t:"10:15",p:"vendome",ttl:"旺多姆广场 → 和平街",note:"Castiglione 街往北，旺多姆广场、和平街、歌剧院是一条直线，约 12 分钟。"},
+   {t:"10:30",p:"opera",ttl:"加尼叶歌剧院",tag:"book",note:"上午人少，也不用担心下午的最后入场时间。偶尔因彩排关闭部分区域，出门前看一眼官网日历。"},
+   {t:"11:30",p:"lafayette",ttl:"老佛爷百货，屋顶露台看全景（免费）",note:"就在歌剧院后面。不同品牌当天能合成一张退税单（退 12%），用一个人的护照，要纸质单。"},
+   {t:"12:30",p:"bedford",ttl:"Le Victoria 午饭",tag:"tbd",note:"从老佛爷走过去约 8 分钟。订位日期是 10.6。"},
+   {t:"14:00",p:"concorde",ttl:"协和广场",note:"从玛德莲沿皇家街往南走约 5 分钟。"},
+   {t:"14:15",p:"marine",ttl:"海军府",tag:"book",note:"参观约 1 小时。"},
+   {t:"15:15",ttl:"圣奥诺雷街往东慢慢逛",note:"Hermès 等品牌都在这一段。"},
+   {t:"15:30",p:"meurice",ttl:"La Pâtisserie du Meurice par Cédric Grolet 取甜品",tag:"book",note:"门店 12:00–18:00。水果造型的招牌尝一两个就好，晚上还有 Taillevent。"},
+   {t:"15:45",p:"tuileries",ttl:"杜乐丽花园，坐下吃甜品",note:"过里沃利街就是花园，找水池边的绿椅子。"},
+   {t:"16:30",p:"sthonore",ttl:"回住处休息、换正装",note:"住处就在杜乐丽旁边，走路几分钟。"},
    {t:"19:30",p:"taillevent",ttl:"Le Taillevent",tag:"unbooked",note:"年轻人优惠还没约上。从住处打车约 15 分钟，着装偏正式。"}
   ]},
- {d:"2026-10-07",city:"巴黎",c:"#2A8C99",stay:"republique",theme:"换酒店，玛黑区一整天，晚上 H 和疯马秀",
+ {d:"2026-10-07",city:"巴黎",c:"#2A8C99",stay:"republique",theme:"换酒店，玛黑从北往南逛，傍晚孚日广场，晚上 H 和疯马秀",
   alert:"Restaurant H 是 tasting menu，通常 2 小时以上，但 21:30 必须离开才赶得上 22:00 到疯马。能改到 19:00 最好；改不了就在入座时告诉餐厅 21:30 要走。",
   items:[
    {t:"10:00",p:"sthonore",ttl:"退房"},
    {t:"10:15",p:"republique",ttl:"打车去 Crowne Plaza République 寄存行李",tag:"booked",note:"约 15 分钟。玛黑就在酒店南边，走路能到。"},
-   {t:"11:00",p:"vosges",ttl:"孚日广场",note:"玛黑很多店 11 点后才开门，现在去正好。"},
-   {t:"11:45",p:"carnavalet",ttl:"卡纳瓦雷博物馆（巴黎历史，免费）"},
-   {t:"13:00",ttl:"玛黑午饭"},
-   {t:"14:30",p:"picasso",ttl:"毕加索美术馆",tag:"book"},
-   {t:"16:00",ttl:"玛黑逛街，回酒店办入住"},
+   {t:"10:45",p:"picasso",ttl:"毕加索美术馆",tag:"book",note:"从酒店往南走约 15 分钟，玛黑从北往南逛，不走回头路。开门时间出发前确认。"},
+   {t:"12:15",ttl:"玛黑午饭"},
+   {t:"13:30",p:"carnavalet",ttl:"卡纳瓦雷博物馆（巴黎历史，免费）",note:"离毕加索美术馆走路约 5 分钟。"},
+   {t:"14:30",ttl:"玛黑逛街",note:"玫瑰街（Rue des Rosiers）、Vieille du Temple 街一带，很多店 11 点后才开门，下午正好。"},
+   {t:"16:00",p:"republique",ttl:"回酒店办入住，休息换衣服",note:"晚上 H 加疯马要到半夜，下午补个觉。"},
+   {t:"18:50",p:"vosges",ttl:"孚日广场傍晚散步",note:"酒店坐地铁 8 号线到 Chemin Vert，两站。从广场走到 H 约 5 分钟。"},
    {t:"19:30",p:"restoh",ttl:"Restaurant H 晚饭",tag:"warn",note:"21:30 离开。"},
    {t:"21:30",ttl:"地铁 1 号线 Saint-Paul → George V",note:"约 20 分钟。"},
    {t:"22:30",p:"crazy",ttl:"疯马秀",tag:"booked",note:"22:00 前到场。散场后地铁 9 号线从 Alma-Marceau 直达 République，或者打车。"}
   ]},
- {d:"2026-10-08",city:"巴黎",c:"#3867C8",stay:"republique",theme:"荣军院和罗丹，La Jacobine 午饭，下午蒙马特看日落",
+ {d:"2026-10-08",city:"巴黎",c:"#3867C8",stay:"republique",theme:"荣军院和罗丹，La Jacobine 午饭，下午和晚上看 10.4 选了哪个方案",
+  alert:"10.4 如果坐了游船，今天就按下面去蒙马特看日落。10.4 如果已经去了蒙马特，下午改逛乐蓬马歇（离 La Jacobine 走路约 15 分钟），晚上坐游船或登铁塔。",
   items:[
    {t:"10:00",p:"invalides",ttl:"荣军院，拿破仑墓和军事博物馆",tag:"book",note:"酒店门口坐地铁 8 号线直达 La Tour-Maubourg。从 10.5 挪到今天：10.5 是每月第一个周一，只开部分展区。"},
    {t:"11:15",p:"rodin",ttl:"罗丹美术馆和花园",tag:"book"},
@@ -347,6 +362,7 @@ const DAYS = [
    {t:"15:15",p:"tertre",ttl:"小丘广场"},
    {t:"16:00",p:"rose",ttl:"粉红之家"},
    {t:"19:00",p:"sacre",ttl:"圣心堂台阶看日落",note:"日落约 19:15。"},
+   {slot:"备选下午",ttl:"乐蓬马歇百货 Le Bon Marché",note:"10.4 已经去过蒙马特时用。楼下美食馆 La Grande Épicerie 适合买伴手礼。"},
    {slot:"晚上",ttl:"三选一：登埃菲尔铁塔 / 奥赛夜场 / 游船",tag:"tbd",note:"铁塔要预约；奥赛周四开到 21:45；游船如果 10.4 没坐就放今晚。"}
   ]},
  {d:"2026-10-09",city:"巴黎 → 巴塞罗那",c:"#7658C2",stay:"acbcn",theme:"上午玛黑早午餐，中午出发，晚上 Sips 和 Paco Meralgo",
@@ -416,7 +432,7 @@ const BOOKED = [
  {d:"2026-10-03",t:"13:50",ttl:"达美 DL3842 + DL290",sub:"10.2 圣何塞 SJC → 洛杉矶 LAX 转机 → 巴黎戴高乐 CDG，10.3 13:50 落地",p:"cdg"},
  {d:"2026-10-03",ttl:"巴黎住处 1",sub:"10.3 – 10.7，4 晚",p:"sthonore",addr:"165 Rue Saint-Honoré, 75001 Paris"},
  {d:"2026-10-04",t:"09:00",ttl:"卢浮宫讲解",sub:"9:00–12:00",p:"louvre"},
- {d:"2026-10-04",t:"12:45",ttl:"Breizh Café 午饭",sub:"两位",p:"breizh"},
+ {d:"2026-10-04",t:"12:45",ttl:"Breizh Café 午饭",sub:"两位，可能取消",p:"breizh"},
  {d:"2026-10-04",t:"15:30",ttl:"奥赛博物馆免费日预约",sub:"约了 13:30 和 15:30 两个时段，用 15:30",p:"orsay",addr:"Esplanade Valéry Giscard d'Estaing, 75007 Paris"},
  {d:"2026-10-05",t:"17:00",ttl:"情侣摄影",sub:"17:00 集合"},
  {d:"2026-10-07",ttl:"Crowne Plaza Paris République",sub:"10.7 – 10.9，2 晚",p:"republique",addr:"10 Place de la République, 75011 Paris"},
@@ -436,21 +452,21 @@ const BOOKED = [
 const TODO = [
  {h:"提前几天做",items:[
   {u:1,t:"巴黎春天 / 老佛爷：提前网上找返现公司并注册",w:"出发前先完成，现场购物时按返现要求操作"},
-  {u:1,t:"La Pâtisserie du Meurice par Cédric Grolet：提前 2–3 天网上预约 pickup",w:"想吃的日期前 2–3 天下单，避免现场售罄"}
+  {u:1,t:"La Pâtisserie du Meurice par Cédric Grolet：10.6 取货，提前 2–3 天网上下单",w:"选 15:00–16:00 的取货时段，取完在杜乐丽吃"}
  ]},
  {h:"当天要早去",items:[
-  {t:"Stohrer：想买 flan 要早去",w:"热门品项晚到可能卖完"},
-  {t:"Goyard：尽量开门前后到",w:"经常排队，越晚等得越久"},
+  {t:"Stohrer：想买 flan 要早去",w:"排在 10.4 早上，去卢浮宫前顺路"},
+  {t:"Goyard：尽量开门前后到",w:"排在 10.6 早上，出门走 5 分钟"},
   {t:"Chanel：放在巴塞罗那买，也要早去排队",w:"尽量安排开门时段，减少排队"}
  ]},
  {h:"尽快订",items:[
   {u:1,t:"巴特罗之家 10.11 15:00 入内票",w:"米拉之家只看外面，不用买"},
   {t:"La Triunfal 10.10 13:30、Tuscania 10.11 13:00 订位",w:""},
   {t:"凯旋门登顶票，10.3 18:15 左右",w:""},
-  {t:"圣礼拜堂和圣母院时段，10.6 上午",w:""},
-  {t:"橘园，10.5 10:00（10.4 免费日也行，同样要约）",w:""},
-  {t:"海军府、加尼叶歌剧院，10.5",w:""},
-  {t:"毕加索美术馆，10.7 14:30",w:""},
+  {t:"圣礼拜堂 10.5 9:00、圣母院 10.5 10:00",w:"10.5 和 10.6 白天对调了"},
+  {t:"橘园：只能 10.4 下午（免费日也要约）",w:"周二闭馆，10.6 去不了；不想去就跳过"},
+  {t:"加尼叶歌剧院 10.6 10:30、海军府 10.6 14:15",w:""},
+  {t:"毕加索美术馆，10.7 10:45",w:"改成上午，玛黑从北往南逛"},
   {t:"荣军院、罗丹美术馆，10.8 上午",w:""}
  ]},
  {h:"要改或要做决定",items:[
@@ -458,11 +474,13 @@ const TODO = [
   {u:1,t:"打电话问 Loewe 等感恩大道的店 10.12 开不开",w:"国庆节，旅游区节假日开门许可只到 9.15"},
   {u:1,t:"Restaurant H 改到 19:00，或入座时说明 21:30 离开",w:"10.7，后面接疯马秀"},
   {t:"Le Taillevent 年轻人优惠，约不上的话 10.6 晚饭换哪家",w:""},
-  {t:"10.3 晚饭选一家",w:"候选：Les Cocottes Tour Eiffel、L'Atypic、JJ Beaumarchais、Boutary、Les Antiquaires"},
-  {t:"塞纳河游船放 10.4 晚还是 10.8 晚，然后订票",w:""},
+  {t:"10.3 晚饭选一家，订 20:30",w:"候选：Les Cocottes Tour Eiffel、L'Atypic、JJ Beaumarchais、Boutary、Les Antiquaires"},
+  {t:"10.4 晚上：蒙马特日落还是游船",w:"看天气定，另一个放 10.8"},
+  {t:"Breizh Café 10.4 12:45 去不去",w:"不去就提前取消"},
+  {t:"10.5 圣日耳曼午饭订一家，Le Victoria 订 10.6 12:30",w:"周一很多餐厅休息，先确认营业"},
   {t:"10.8 晚上：铁塔登顶、奥赛夜场还是游船",w:""},
   {t:"El Tros de la Rambla 如果订了 10.11 12:30，取消或改到别的日子",w:"和圣家堂冲突"},
-  {t:"情侣摄影的集合地点和机位",w:"10.5 17:00 集合"}
+  {t:"情侣摄影的集合地点和机位",w:"10.5 17:00 集合，15:30 前回住处"}
  ]},
  {h:"出发前",items:[
   {t:"UA673 选座",w:"两人都还没选，想坐一起早点选"},
