@@ -162,7 +162,7 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);text-align:center}
   <div class="focus" id="focus" aria-live="polite"></div>
 
   <nav class="jump" aria-label="页面目录">
-    <a href="#map">路线地图</a><a href="#booked">已订</a><a href="#days">逐日行程</a><a href="#todo">待办</a><a href="#tips">贴士</a>
+    <a href="#map">路线地图</a><a href="#days">逐日行程</a><a href="#todo">待办</a><a href="#tips">贴士</a>
   </nav>
 
   <section id="map">
@@ -170,12 +170,6 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);text-align:center}
     <p class="sub">每种颜色是一天的路线。点图例跳到当天。</p>
     <figure class="map"><svg id="mapParis" role="img" aria-label="巴黎每日路线手绘图"></svg><div class="legend" id="lgParis"></div><figcaption>巴黎 10.3 – 10.9，10.9 下午从奥利机场飞巴塞罗那</figcaption></figure>
     <figure class="map"><svg id="mapBcn" role="img" aria-label="巴塞罗那每日路线手绘图"></svg><div class="legend" id="lgBcn"></div><figcaption>巴塞罗那 10.9 晚 – 10.13</figcaption></figure>
-  </section>
-
-  <section id="booked">
-    <h2>已订</h2>
-    <p class="sub">机票、门票、餐厅、演出。点名称直接导航。</p>
-    <div class="bk" id="bk"></div>
   </section>
 
   <section id="days">
@@ -440,6 +434,15 @@ const BOOKED = [
 
 /* ---------- todo (plain list, edited by hand) ---------- */
 const TODO = [
+ {h:"提前几天做",items:[
+  {u:1,t:"巴黎春天 / 老佛爷：提前网上找返现公司并注册",w:"出发前先完成，现场购物时按返现要求操作"},
+  {u:1,t:"La Pâtisserie du Meurice par Cédric Grolet：提前 2–3 天网上预约 pickup",w:"想吃的日期前 2–3 天下单，避免现场售罄"}
+ ]},
+ {h:"当天要早去",items:[
+  {t:"Stohrer：想买 flan 要早去",w:"热门品项晚到可能卖完"},
+  {t:"Goyard：尽量开门前后到",w:"经常排队，越晚等得越久"},
+  {t:"Chanel：放在巴塞罗那买，也要早去排队",w:"尽量安排开门时段，减少排队"}
+ ]},
  {h:"尽快订",items:[
   {u:1,t:"巴特罗之家 10.11 15:00 入内票",w:"米拉之家只看外面，不用买"},
   {t:"La Triunfal 10.10 13:30、Tuscania 10.11 13:00 订位",w:""},
@@ -723,7 +726,7 @@ function renderTips(){
   document.getElementById("tipList").innerHTML = TIPS.map(t=>`<article><h3>${esc(t.h)}</h3>${t.li?`<ul>${t.li.map(x=>`<li>${esc(x).replace(/&lt;b&gt;(.*?)&lt;\/b&gt;/g,"<b>$1</b>")}</li>`).join("")}</ul>`:t.p.map(x=>`<p>${esc(x)}</p>`).join("")}</article>`).join("");
 }
 
-renderBooked(); renderDays(); renderTodo(); renderTips(); openDayFromHash(location.hash);
+renderDays(); renderTodo(); renderTips(); openDayFromHash(location.hash);
 drawOverview("mapParis","lgParis","paris"); drawOverview("mapBcn","lgBcn","bcn");
 markPast(); setInterval(markPast, 60000);
 if (renderFocus()) setInterval(renderFocus, 1000);
