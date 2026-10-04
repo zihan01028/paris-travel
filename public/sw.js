@@ -1,5 +1,5 @@
 // 离线缓存：有网时总是取最新页面，没网时用上次缓存的版本
-const CACHE = "trip-v2";
+const CACHE = "trip-v3";
 
 function rewriteHtml(html){
   const replacements = [
@@ -27,17 +27,41 @@ function rewriteHtml(html){
       '{t:"20:00",p:"antiquaires",ttl:"Les Antiquaires 晚饭",tag:"book",note:"7 区 rue du Bac 的小酒馆，从铁塔一带打车约 10 分钟，从住处过河约 15 分钟。拍照结束时间不好说就订晚一点。"}',
       '{slot:"晚上",ttl:"摄影结束后按状态决定晚饭",note:"Les Antiquaires 已改到 10.4 17:30。今天拍完照后在附近简单吃或回住处休息。"}'
     ],
+
+    // 10.6：12:15 Pantagruel，饭后再逛春天/老佛爷，然后直接去歌剧院
     [
-      '{t:"11:15",p:"lafayette",ttl:"老佛爷百货，上屋顶看全景（免费）",note:"就在春天隔壁。同一天在老佛爷买的东西可以合成一张退税单（退 12%），上午下午分开买也行，最后一起去退税柜台开。12:00 出发去吃饭。"},\n   {t:"12:15",p:"pantagruel",ttl:"Pantagruel 午饭（米其林一星）",tag:"book",note:"沿歌剧院大道往南走约 10–15 分钟。午餐套餐比晚餐便宜很多，吃下来约 2 小时。周末休息。"},\n   {t:"14:30",p:"lafayette",ttl:"回老佛爷和春天接着买",note:"从 Pantagruel 走回去约 10 分钟。"},\n   {t:"16:00",p:"sthonore",ttl:"走回住处放购物袋、休息、换衣服",note:"约 15 分钟。"}',
-      '{t:"11:15",p:"lafayette",ttl:"老佛爷百货，上屋顶看全景（免费）",note:"就在春天隔壁。同一天在老佛爷买的东西可以合成一张退税单（退 12%）。午饭 13:30 已订，13:10 左右离开百货去餐厅。"},\n   {t:"13:30",p:"pantagruel",ttl:"Pantagruel 午饭（米其林一星）",tag:"booked",note:"已约 13:30。沿歌剧院大道往南走约 10–15 分钟，午餐大约留 2 小时。"},\n   {t:"15:40",p:"sthonore",ttl:"回住处放购物袋、休息、换衣服",note:"Pantagruel 离住处很近，吃完直接回去，为 17:00 歌剧院留足时间。"}'
+      'theme:"春天和老佛爷购物，Pantagruel 午饭，下午接着买，17:00 加尼叶歌剧院参观加看演出"',
+      'theme:"Pantagruel 12:15 午饭，饭后逛春天和老佛爷，然后直接去加尼叶歌剧院"'
     ],
+    [
+      '{t:"10:30",p:"printemps",ttl:"春天百货（Printemps Haussmann）",note:"10 点开门，上午人少。屋顶露台也能看铁塔。春天和老佛爷是两家公司，退税单分开开，各自同一天满 100.01€。"},\n   {t:"11:15",p:"lafayette",ttl:"老佛爷百货，上屋顶看全景（免费）",note:"就在春天隔壁。同一天在老佛爷买的东西可以合成一张退税单（退 12%），上午下午分开买也行，最后一起去退税柜台开。12:00 出发去吃饭。"},\n   {t:"12:15",p:"pantagruel",ttl:"Pantagruel 午饭（米其林一星）",tag:"book",note:"沿歌剧院大道往南走约 10–15 分钟。午餐套餐比晚餐便宜很多，吃下来约 2 小时。周末休息。"},\n   {t:"14:30",p:"lafayette",ttl:"回老佛爷和春天接着买",note:"从 Pantagruel 走回去约 10 分钟。"},\n   {t:"16:00",p:"sthonore",ttl:"走回住处放购物袋、休息、换衣服",note:"约 15 分钟。"},\n   {t:"16:45",ttl:"走去歌剧院",note:"沿歌剧院大道直走约 15 分钟。"}',
+      '{t:"11:00",ttl:"旺多姆广场和歌剧院大道附近随便逛逛",note:"午饭前不进百货，把购物集中放到 Pantagruel 之后。"},\n   {t:"12:15",p:"pantagruel",ttl:"Pantagruel 午饭（米其林一星）",tag:"booked",note:"已约 12:15。午餐大约留 2 小时，吃完直接去春天和老佛爷。"},\n   {t:"14:20",p:"printemps",ttl:"春天百货（Printemps Haussmann）",note:"从 Pantagruel 过去约 10–15 分钟。春天和老佛爷是两家公司，退税单分开开。"},\n   {t:"15:10",p:"lafayette",ttl:"老佛爷百货，上屋顶看全景（免费）",note:"就在春天隔壁。买完不回住处，直接去歌剧院。"},\n   {t:"16:40",ttl:"从老佛爷直接去歌剧院",note:"步行几分钟即可到加尼叶歌剧院。"}'
+    ],
+
+    // 10.8：不再安排 Cédric Grolet
+    [
+      'theme:"荣军院和罗丹，La Jacobine 午饭，杜乐丽吃 Cédric Grolet，海军府，蒙马特看日落，晚上 Le Villaret"',
+      'theme:"荣军院和罗丹，La Jacobine 午饭，海军府，蒙马特看日落，晚上 Le Villaret"'
+    ],
+    [
+      'alert:"Cédric Grolet 提前 2–3 天在官网下单，选 14:00–15:00 取货，取了马上吃。10.4 如果已经去了蒙马特，海军府之后改逛乐蓬马歇，傍晚回酒店，晚上直接去 Le Villaret。"',
+      'alert:"10.4 如果已经去了蒙马特，海军府之后改逛乐蓬马歇，傍晚回酒店，晚上直接去 Le Villaret。"'
+    ],
+    [
+      '{t:"12:30",p:"jacobine",ttl:"La Jacobine 午饭",tag:"booked",note:"甜点可以省了，下午还有 Cédric Grolet。"},\n   {t:"14:00",ttl:"步行去 Castiglione 街",note:"过艺术桥、穿过卢浮宫的拿破仑庭院到里沃利街，约 20 分钟，正好消消食。"},\n   {t:"14:20",p:"meurice",ttl:"La Pâtisserie du Meurice par Cédric Grolet 取甜品",tag:"book",note:"门店 12:00–18:00。水果造型的招牌尝一两个就好。"},\n   {t:"14:30",p:"tuileries",ttl:"杜乐丽花园，坐下吃甜品",note:"过里沃利街就是花园，找水池边的绿椅子。"},\n   {t:"15:00",p:"marine",ttl:"海军府",tag:"book",note:"从 10.6 挪过来。穿过杜乐丽走到协和广场约 10 分钟，参观约 1 小时。"},\n   {t:"16:00",p:"concorde",ttl:"协和广场坐地铁 12 号线",note:"直达蒙马特的 Abbesses 站，约 20 分钟。"},\n   {t:"16:30",p:"jetaime",ttl:"蒙马特：爱墙",note:"就在 Abbesses 站旁边。"},\n   {t:"17:15",p:"tertre",ttl:"小丘广场"},\n   {t:"18:00",p:"rose",ttl:"粉红之家"}',
+      '{t:"12:30",p:"jacobine",ttl:"La Jacobine 午饭",tag:"booked"},\n   {t:"13:45",ttl:"从圣日耳曼前往海军府",note:"午饭后直接往协和广场方向走或打车。"},\n   {t:"14:15",p:"marine",ttl:"海军府",tag:"book",note:"从 10.6 挪过来，参观约 1 小时。"},\n   {t:"15:30",p:"concorde",ttl:"协和广场坐地铁 12 号线",note:"直达蒙马特的 Abbesses 站，约 20 分钟。"},\n   {t:"16:00",p:"jetaime",ttl:"蒙马特：爱墙",note:"就在 Abbesses 站旁边。"},\n   {t:"16:45",p:"tertre",ttl:"小丘广场"},\n   {t:"17:30",p:"rose",ttl:"粉红之家"}'
+    ],
+
+    // 未订餐列表同步
     [
       '{d:"2026-10-04",t:"午饭：Cédric Grolet + 杜乐丽小餐车，或 LV 咖啡馆",w:"LV 咖啡馆是备选，要定金所以没订，到了碰运气"},\n  {d:"2026-10-04",t:"晚饭：蒙马特或圣日耳曼",w:"看天气决定去哪边，周日很多餐厅休息，当天现找就行"},\n  {d:"2026-10-05",u:1,t:"晚饭：Les Antiquaires 20:00",w:"还没订，随时能约"},\n  {d:"2026-10-06",u:1,t:"午饭：Pantagruel 12:15",w:"还没订。周末休息，只能订工作日"},',
       '{d:"2026-10-04",t:"午饭：LV Cafe",w:"卢浮宫结束后直接去，不再现场排 Cédric Grolet"},\n  {d:"2026-10-05",t:"晚饭：摄影结束后简单吃",w:"Les Antiquaires 已改约到 10.4 17:30"},'
     ],
+
+    // 待办同步：删掉 Cédric Grolet 10.8 pickup 和 Pantagruel 订位提醒
     [
-      '{u:1,t:"La Pâtisserie du Meurice par Cédric Grolet：10.8 取货，提前 2–3 天网上下单",w:"选 14:00–15:00 的取货时段。10.4 中午现场买到了的话，10.8 就不用再订"}',
-      '{u:1,t:"La Pâtisserie du Meurice par Cédric Grolet：10.8 取货，提前 2–3 天网上下单",w:"选 14:00–15:00 的取货时段。10.4 不再现场排队，按 10.8 pickup 计划走"}'
+      '  {u:1,t:"巴黎春天 / 老佛爷：提前网上找返现公司并注册",w:"出发前先完成，现场购物时按返现要求操作"},\n  {u:1,t:"La Pâtisserie du Meurice par Cédric Grolet：10.8 取货，提前 2–3 天网上下单",w:"选 14:00–15:00 的取货时段。10.4 中午现场买到了的话，10.8 就不用再订"}',
+      '  {u:1,t:"巴黎春天 / 老佛爷：提前网上找返现公司并注册",w:"出发前先完成，现场购物时按返现要求操作"}'
     ],
     [
       '  {u:1,t:"新订：Pantagruel 10.6 12:15 午饭",w:"周末休息，午餐比晚餐便宜"},\n  {u:1,t:"新订：Les Antiquaires 10.5 20:00 晚饭",w:"拍照结束时间不确定就订晚一点"},\n',
@@ -47,13 +71,15 @@ function rewriteHtml(html){
       '10.3 Les Antiquaires、L\'Atypic、Boutary、Traboule；10.4 Café Marly、Breizh；',
       '10.3 L\'Atypic、Boutary、Traboule；10.4 Café Marly、Breizh；'
     ],
+
+    // 内部已订数据同步
     [
       '{d:"2026-10-04",t:"12:45",ttl:"Breizh Café 午饭",sub:"两位，可能取消",p:"breizh"},\n {d:"2026-10-04",t:"15:30",ttl:"奥赛博物馆免费日预约",sub:"约了 13:30 和 15:30 两个时段，先争取 13:30",p:"orsay",addr:"Esplanade Valéry Giscard d\'Estaing, 75007 Paris"},',
       '{d:"2026-10-04",t:"15:30",ttl:"奥赛博物馆免费日预约",sub:"用 15:30 时段",p:"orsay",addr:"Esplanade Valéry Giscard d\'Estaing, 75007 Paris"},\n {d:"2026-10-04",t:"17:30",ttl:"Les Antiquaires",sub:"已约 17:30",p:"antiquaires",addr:"13 Rue du Bac, Paris"},'
     ],
     [
       '{d:"2026-10-05",t:"17:00",ttl:"情侣摄影",sub:"17:00 集合"},',
-      '{d:"2026-10-05",t:"17:00",ttl:"情侣摄影",sub:"17:00 集合"},\n {d:"2026-10-06",t:"13:30",ttl:"Pantagruel",sub:"午饭已约 13:30",p:"pantagruel",addr:"10 Rue de Richelieu, Paris"},'
+      '{d:"2026-10-05",t:"17:00",ttl:"情侣摄影",sub:"17:00 集合"},\n {d:"2026-10-06",t:"12:15",ttl:"Pantagruel",sub:"午饭已约 12:15",p:"pantagruel",addr:"10 Rue de Richelieu, Paris"},'
     ]
   ];
   for (const [from,to] of replacements) html = html.replace(from,to);
