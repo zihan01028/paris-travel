@@ -1,8 +1,8 @@
 // 离线缓存：有网时总是取最新页面，没网时用上次缓存的版本
-const CACHE = "trip-v5";
+const CACHE = "trip-v6";
 
 function replaceDay(html, date, nextDate, block){
-  const re = new RegExp(` \\{d:\"${date}\"[\\s\\S]*?(?=\n \\{d:\"${nextDate}\")`);
+  const re = new RegExp(` \\{d:\"${date}\"[\\s\\S]*?(?=\\n \\{d:\"${nextDate}\")`);
   return html.replace(re, block);
 }
 
@@ -25,16 +25,18 @@ function rewriteHtml(html){
    {t:"17:30",p:"antiquaires",ttl:"Les Antiquaires",tag:"booked",note:"已约 17:30。从奥赛走过去约 10 分钟。"}
   ]},`);
 
-  // 10.5：Stohrer → Carrefour City → 卢浮宫外拍 → 巴黎圣母院 → LV Dream → 逛街 → 16:30 摄影 → 塞纳河游船
-  html = replaceDay(html,"2026-10-05","2026-10-06",` {d:"2026-10-05",city:"巴黎",c:"#C49B1E",stay:"sthonore",theme:"Stohrer、卢浮宫清晨拍照、巴黎圣母院、LV Dream，下午逛街，16:30 情侣摄影，晚上塞纳河游船",
-  alert:"情侣摄影改到 16:30。City Pharma 不再固定塞进白天行程，药妆店开到晚上 21:00，哪天晚上有空再去。",
+  // 10.5：恢复巴黎圣母院 → 先贤祠 → 卢森堡公园；不去 LV Cafe
+  html = replaceDay(html,"2026-10-05","2026-10-06",` {d:"2026-10-05",city:"巴黎",c:"#C49B1E",stay:"sthonore",theme:"Stohrer、卢浮宫清晨拍照、巴黎圣母院、先贤祠、卢森堡公园，下午逛街，16:30 情侣摄影，晚上塞纳河游船",
+  alert:"情侣摄影 16:30。City Pharma 不固定塞进白天行程，药妆店开到晚上 21:00，哪天晚上有空再去。",
   items:[
    {slot:"每天",ttl:"约爱马仕",tag:"book",note:"抽签制，每天都约一次试试。"},
    {t:"07:30",p:"stohrer",ttl:"Stohrer 早餐：可颂和 flan",note:"10.4 没去，今天早上补上。买完边走边吃。"},
    {t:"07:55",ttl:"Carrefour City 逛逛",note:"顺路看看法国超市零食、饮料和日用品，不用停太久。"},
    {t:"08:25",p:"louvre",ttl:"卢浮宫外面拍照",note:"8 点多游客通常比白天少，主要拍玻璃金字塔、拿破仑庭院和长廊外景。"},
-   {t:"09:15",p:"notredame",ttl:"巴黎圣母院",note:"从卢浮宫一带过去约 20 分钟；其余 10.5 行程保持不变。"},
-   {t:"12:00",p:"lvcafe",ttl:"LV Dream 吃点东西",note:"中午在 LV Dream / LV Cafe 吃点，行程不用排太满。"},
+   {t:"09:15",p:"notredame",ttl:"巴黎圣母院",note:"从卢浮宫一带过去约 20 分钟。"},
+   {t:"10:30",p:"pantheon",ttl:"先贤祠",note:"从巴黎圣母院往南走约 15 分钟。"},
+   {t:"11:30",p:"luxembourg",ttl:"卢森堡公园",note:"从先贤祠走过去约 10 分钟，在公园里散步休息。"},
+   {t:"12:30",ttl:"圣日耳曼 / 拉丁区随便吃点",note:"不去 LV Cafe，上午路线走完后就近简单吃。"},
    {t:"13:30",ttl:"Saint-Honoré、旺多姆一带逛街",note:"摄影前留一段购物时间；不要买太重，拍照前还要整理一下。"},
    {t:"15:30",p:"sthonore",ttl:"回住处放东西、补妆换衣服",note:"给 16:30 摄影留足准备和交通时间。"},
    {t:"16:30",ttl:"情侣摄影集合",tag:"booked",note:"今天日落约 19:20。按摄影师给的集合地点过去。"},
@@ -80,7 +82,7 @@ function rewriteHtml(html){
     '{d:"2026-10-04",t:"午饭：LV Cafe",w:"卢浮宫结束后直接去"},'
   );
   html = html.replace(/\n  \{d:"2026-10-04",t:"晚饭：蒙马特或圣日耳曼"[^\n]*/,"");
-  html = html.replace(/\n  \{d:"2026-10-05",u:1,t:"晚饭：Les Antiquaires 20:00"[^\n]*/, '\n  {d:"2026-10-05",t:"晚饭：摄影后简单吃",w:"之后 20:30 左右去塞纳河游船"},');
+  html = html.replace(/\n  \{d:"2026-10-05",u:1,t:"晚饭：Les Antiquaires 20:00"[^\n]*/, '\n  {d:"2026-10-05",t:"午饭：圣日耳曼 / 拉丁区随便吃",w:"不去 LV Cafe，上午逛完后就近吃"},\n  {d:"2026-10-05",t:"晚饭：摄影后简单吃",w:"之后 20:30 左右去塞纳河游船"},');
   html = html.replace(/\n  \{d:"2026-10-06",u:1,t:"午饭：Pantagruel 12:15"[^\n]*/,"");
 
   // 待办：删 Cédric Grolet pickup，City Pharma 改为晚上灵活去
